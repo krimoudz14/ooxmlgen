@@ -1,29 +1,18 @@
 node_modules/
 dist/
 output/
-
-# Temp / debug files
-debug-*.js
-debug-*.ts
-test-arabic-post.js
-demo/test.js
-demo/test-output.docx
 *.docx
+tsconfig.tsbuildinfo
 
-# Compiled test artifacts (not needed in repo)
+# Compiled test artifacts
 tests/*.js
 tests/*.d.ts
 tests/*.js.map
-tsconfig.tsbuildinfo
+tests/*.d.ts.map
 
-# Extracted XML fragments from examples
-examples/word/
-
-# Large ECMA spec packages (local reference only)
+# Local ECMA spec packages (not part of the library)
 ALL ECMA PACKAGES/
 
-# Misc
-all chat.txt
-all emca files.txt
+# OS / editor
 .DS_Store
-.kilo/
+.vscode/
