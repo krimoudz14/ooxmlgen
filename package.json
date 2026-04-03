@@ -39,16 +39,16 @@
     "right-to-left",
     "internationalization"
   ],
-  "author": "ooxmlgen contributors",
+  "author": "Karim Tiarti <karim.tiarti@hotmail.com>",
   "license": "ISC",
   "type": "commonjs",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-org/ooxmlgen.git"
+    "url": "https://github.com/krimoudz14/ooxmlgen.git"
   },
-  "homepage": "https://github.com/your-org/ooxmlgen#readme",
+  "homepage": "https://github.com/krimoudz14/ooxmlgen#readme",
   "bugs": {
-    "url": "https://github.com/your-org/ooxmlgen/issues"
+    "url": "https://github.com/krimoudz14/ooxmlgen/issues"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
