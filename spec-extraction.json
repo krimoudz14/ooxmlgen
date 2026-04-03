@@ -1,0 +1,641 @@
+{
+  "_meta": {
+    "generated": "2026-04-01",
+    "source_edition": "ECMA-376 5th edition",
+    "confidence_scale": "high | medium | low",
+    "status_scale": "extracted | partially-extracted | classified-only | deferred"
+  },
+  "batches": [
+    {
+      "batch_id": "B0-OPC",
+      "title": "Open Packaging Conventions (OPC)",
+      "source_files": [
+        "5TH EDITION PART2/opc-contentTypes.xsd",
+        "5TH EDITION PART2/opc-relationships.xsd",
+        "5TH EDITION PART2/opc-coreProperties.xsd"
+      ],
+      "status": "extracted",
+      "confidence": "high",
+      "structural_summary": {
+        "what_is_defined": [
+          "CT_Types: root element of [Content_Types].xml - contains Default and Override children",
+          "CT_Default: maps file extension to content type (e.g. .xml -> application/xml)",
+          "CT_Override: maps specific part URI to content type (e.g. /word/document.xml -> application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml)",
+          "CT_Relationships: root element of .rels files - contains Relationship children",
+          "CT_Relationship: Id (xsd:ID), Type (URI), Target (URI), TargetMode (Internal|External)",
+          "CT_CoreProperties: Dublin Core based metadata - title, creator, created, modified, description, subject, keywords, category, revision, lastModifiedBy, lastPrinted, contentStatus, version"
+        ],
+        "namespaces": {
+          "content_types": "http://schemas.openxmlformats.org/package/2006/content-types",
+          "relationships": "http://schemas.openxmlformats.org/package/2006/relationships",
+          "core_properties": "http://schemas.openxmlformats.org/package/2006/metadata/core-properties",
+          "dc": "http://purl.org/dc/elements/1.1/",
+          "dcterms": "http://purl.org/dc/terms/"
+        },
+        "key_constraints": [
+          "Every part in the package MUST have a content type (via Default or Override)",
+          "Relationship Id MUST be unique within a .rels file (xsd:ID type)",
+          "TargetMode defaults to Internal if omitted",
+          "Package-level .rels is at /_rels/.rels",
+          "Part-level .rels is at <part-dir>/_rels/<part-name>.rels"
+        ],
+        "required_vs_optional": {
+          "CT_Default": { "Extension": "required", "ContentType": "required" },
+          "CT_Override": { "ContentType": "required", "PartName": "required" },
+          "CT_Relationship": { "Id": "required", "Type": "required", "Target": "required", "TargetMode": "optional" }
+        }
+      },
+      "typescript_targets": [
+        { "concept": "CT_Types", "ts_target": "interface", "name": "OpcContentTypes", "priority": "P0" },
+        { "concept": "CT_Default", "ts_target": "interface", "name": "OpcContentTypeDefault", "priority": "P0" },
+        { "concept": "CT_Override", "ts_target": "interface", "name": "OpcContentTypeOverride", "priority": "P0" },
+        { "concept": "CT_Relationships", "ts_target": "interface", "name": "OpcRelationships", "priority": "P0" },
+        { "concept": "CT_Relationship", "ts_target": "interface", "name": "OpcRelationship", "priority": "P0" },
+        { "concept": "ST_TargetMode", "ts_target": "type alias", "name": "OpcTargetMode", "priority": "P0" },
+        { "concept": "CT_CoreProperties", "ts_target": "interface", "name": "OpcCoreProperties", "priority": "P1" },
+        { "concept": "Package builder", "ts_target": "class", "name": "OpcPackage", "priority": "P0", "note": "Wraps JSZip or similar, manages parts and relationships" },
+        { "concept": "Content type registry", "ts_target": "class", "name": "ContentTypeManager", "priority": "P0" },
+        { "concept": "Relationship manager", "ts_target": "class", "name": "RelationshipManager", "priority": "P0" }
+      ],
+      "not_translated": [
+        "opc-digSig.xsd - digital signatures, deferred",
+        "ST_ContentType regex pattern - validated at runtime by content type string, not a TS type",
+        "ST_Extension regex - same"
+      ]
+    },
+    {
+      "batch_id": "B1-SharedCore",
+      "title": "Shared OOXML Core Types",
+      "source_files": [
+        "5TH EDITION PART1/shared-commonSimpleTypes.xsd",
+        "5TH EDITION PART1/shared-relationshipReference.xsd",
+        "5TH EDITION PART1/shared-documentPropertiesExtended.xsd"
+      ],
+      "status": "extracted",
+      "confidence": "high",
+      "structural_summary": {
+        "shared_commonSimpleTypes": {
+          "namespace": "http://purl.oclc.org/ooxml/officeDocument/sharedTypes",
+          "types": [
+            "ST_Lang: string (BCP47 language tag)",
+            "ST_HexColorRGB: hexBinary length=3 (e.g. FF0000)",
+            "ST_Panose: hexBinary length=10",
+            "ST_CalendarType: enum (gregorian, hijri, hebrew, taiwan, japan, thai, korea, saka, none, ...)",
+            "ST_Guid: token pattern {XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX}",
+            "ST_OnOff: union of xsd:boolean (true/false/1/0/on/off)",
+            "ST_String: string",
+            "ST_XmlName: NCName 1-255 chars",
+            "ST_UnsignedDecimalNumber: unsignedLong",
+            "ST_TwipsMeasure: union of ST_UnsignedDecimalNumber | ST_PositiveUniversalMeasure",
+            "ST_VerticalAlignRun: enum (baseline, superscript, subscript)",
+            "ST_Xstring: string",
+            "ST_XAlign: enum (left, center, right, inside, outside)",
+            "ST_YAlign: enum (inline, top, center, bottom, inside, outside)",
+            "ST_ConformanceClass: enum (strict, transitional)",
+            "ST_UniversalMeasure: pattern -?[0-9]+(.[0-9]+)?(mm|cm|in|pt|pc|pi)",
+            "ST_PositiveUniversalMeasure: positive variant",
+            "ST_Percentage: pattern -?[0-9]+(.[0-9]+)?%",
+            "ST_FixedPercentage: -100 to 100%",
+            "ST_PositivePercentage: 0+%",
+            "ST_PositiveFixedPercentage: 0-100%"
+          ],
+          "key_note": "ST_TwipsMeasure is the primary unit for page dimensions, margins, spacing. 1 twip = 1/1440 inch = 1/20 point."
+        },
+        "shared_relationshipReference": {
+          "namespace": "http://purl.oclc.org/ooxml/officeDocument/relationships",
+          "types": [
+            "ST_RelationshipId: string",
+            "r:id attribute - used on drawing blip, hyperlink, image embed etc.",
+            "r:embed, r:link, r:blip, r:href, r:pict etc. - all ST_RelationshipId"
+          ]
+        },
+        "shared_documentPropertiesExtended": {
+          "namespace": "http://purl.oclc.org/ooxml/officeDocument/extendedProperties",
+          "root_element": "Properties",
+          "key_fields": ["Application", "AppVersion", "Pages", "Words", "Characters", "Template", "Company", "Manager", "DocSecurity", "ScaleCrop", "LinksUpToDate", "SharedDoc", "HyperlinksChanged"]
+        }
+      },
+      "typescript_targets": [
+        { "concept": "ST_OnOff", "ts_target": "type alias", "name": "StOnOff", "value": "boolean | 'true' | 'false' | '1' | '0' | 'on' | 'off'", "priority": "P0" },
+        { "concept": "ST_TwipsMeasure", "ts_target": "type alias", "name": "Twips", "value": "number", "priority": "P0", "note": "Represent as number (twips integer) in TS; parse string form at boundary" },
+        { "concept": "ST_HexColorRGB", "ts_target": "type alias", "name": "HexColorRGB", "value": "string", "priority": "P1" },
+        { "concept": "ST_Lang", "ts_target": "type alias", "name": "LanguageTag", "value": "string", "priority": "P1" },
+        { "concept": "ST_Guid", "ts_target": "type alias", "name": "Guid", "value": "string", "priority": "P2" },
+        { "concept": "ST_ConformanceClass", "ts_target": "type alias", "name": "ConformanceClass", "value": "'strict' | 'transitional'", "priority": "P1" },
+        { "concept": "ST_RelationshipId", "ts_target": "type alias", "name": "RelationshipId", "value": "string", "priority": "P0" },
+        { "concept": "ST_UniversalMeasure", "ts_target": "type alias", "name": "UniversalMeasure", "value": "string", "priority": "P2" },
+        { "concept": "CT_Properties (extended)", "ts_target": "interface", "name": "ExtendedProperties", "priority": "P1" }
+      ],
+      "not_translated": [
+        "ST_CalendarType - East Asian calendar types, not needed for v1 DOCX generation",
+        "ST_Panose - font classification, not needed for v1",
+        "ST_XmlName - internal schema constraint, not a TS type",
+        "ST_Percentage variants - used in DrawingML/SML, not WML core"
+      ]
+    },
+    {
+      "batch_id": "B2-WML-Core",
+      "title": "WordprocessingML Core Structure",
+      "source_files": [
+        "5TH EDITION PART1/wml.xsd (lines 1-3461)"
+      ],
+      "status": "extracted",
+      "confidence": "high",
+      "structural_summary": {
+        "namespace": "http://purl.oclc.org/ooxml/wordprocessingml/main",
+        "prefix": "w",
+        "root_element": "document (CT_Document)",
+        "imports": [
+          "dml-wordprocessingDrawing.xsd (wp namespace)",
+          "shared-math.xsd (m namespace)",
+          "shared-relationshipReference.xsd (r namespace)",
+          "shared-commonSimpleTypes.xsd (s namespace)",
+          "shared-customXmlSchemaProperties.xsd (sl namespace)"
+        ],
+        "document_hierarchy": {
+          "CT_Document": {
+            "extends": "CT_DocumentBase",
+            "children": ["background (CT_Background, optional)", "body (CT_Body, 0..1)"],
+            "attributes": ["conformance (ST_ConformanceClass, optional)"]
+          },
+          "CT_Body": {
+            "children": ["EG_BlockLevelElts (0..unbounded)", "sectPr (CT_SectPr, 0..1)"]
+          },
+          "EG_BlockLevelElts": {
+            "choice": ["EG_BlockLevelChunkElts", "altChunk (CT_AltChunk)"]
+          },
+          "EG_ContentBlockContent": {
+            "choice": ["customXml (CT_CustomXmlBlock)", "sdt (CT_SdtBlock)", "p (CT_P)", "tbl (CT_Tbl)", "EG_RunLevelElts"]
+          }
+        },
+        "paragraph": {
+          "CT_P": {
+            "children": ["pPr (CT_PPr, optional)", "EG_PContent (0..unbounded)"],
+            "attributes": ["rsidRPr", "rsidR", "rsidDel", "rsidP", "rsidRDefault (all ST_LongHexNumber, optional)"],
+            "note": "rsid attributes are revision save IDs - not needed for generation, can be omitted"
+          },
+          "CT_PPr": {
+            "extends": "CT_PPrBase",
+            "extra_children": ["rPr (CT_ParaRPr)", "sectPr (CT_SectPr)", "pPrChange (CT_PPrChange)"]
+          },
+          "CT_PPrBase_key_children": [
+            "pStyle (CT_String) - style ID reference",
+            "keepNext (CT_OnOff)",
+            "keepLines (CT_OnOff)",
+            "pageBreakBefore (CT_OnOff)",
+            "numPr (CT_NumPr) - list numbering",
+            "pBdr (CT_PBdr) - paragraph borders",
+            "shd (CT_Shd) - shading",
+            "tabs (CT_Tabs)",
+            "spacing (CT_Spacing) - before/after/line spacing",
+            "ind (CT_Ind) - indentation",
+            "jc (CT_Jc) - alignment (start/center/end/both)",
+            "outlineLvl (CT_DecimalNumber) - heading level 0-8"
+          ]
+        },
+        "run": {
+          "CT_R": {
+            "children": ["EG_RPr (rPr, optional)", "EG_RunInnerContent (0..unbounded)"],
+            "attributes": ["rsidRPr", "rsidDel", "rsidR (optional)"]
+          },
+          "EG_RunInnerContent_key": [
+            "t (CT_Text) - text content - THE primary run content",
+            "br (CT_Br) - break (page/column/textWrapping)",
+            "tab (CT_Empty) - tab character",
+            "cr (CT_Empty) - carriage return",
+            "noBreakHyphen (CT_Empty)",
+            "softHyphen (CT_Empty)",
+            "drawing (CT_Drawing) - inline/floating drawing",
+            "fldChar (CT_FldChar) - field character",
+            "instrText (CT_Text) - field instruction",
+            "footnoteReference (CT_FtnEdnRef)",
+            "endnoteReference (CT_FtnEdnRef)",
+            "sym (CT_Sym) - symbol"
+          ],
+          "CT_RPr_key_properties": [
+            "rStyle (CT_String) - character style ID",
+            "rFonts (CT_Fonts) - font family (ascii, hAnsi, eastAsia, cs)",
+            "b (CT_OnOff) - bold",
+            "i (CT_OnOff) - italic",
+            "caps (CT_OnOff) - all caps",
+            "smallCaps (CT_OnOff)",
+            "strike (CT_OnOff) - strikethrough",
+            "dstrike (CT_OnOff) - double strikethrough",
+            "outline (CT_OnOff)",
+            "shadow (CT_OnOff)",
+            "color (CT_Color) - text color",
+            "sz (CT_HpsMeasure) - font size in half-points",
+            "szCs (CT_HpsMeasure) - complex script font size",
+            "highlight (CT_Highlight)",
+            "u (CT_Underline) - underline style",
+            "vertAlign (CT_VerticalAlignRun) - superscript/subscript",
+            "lang (CT_Language)",
+            "spacing (CT_SignedTwipsMeasure) - character spacing",
+            "kern (CT_HpsMeasure) - kerning threshold",
+            "position (CT_SignedHpsMeasure) - vertical position",
+            "shd (CT_Shd) - run shading",
+            "bdr (CT_Border) - run border",
+            "vanish (CT_OnOff) - hidden text",
+            "rtl (CT_OnOff) - right-to-left"
+          ]
+        },
+        "table": {
+          "CT_Tbl": {
+            "children": ["EG_RangeMarkupElements (0..unbounded)", "tblPr (CT_TblPr, required)", "tblGrid (CT_TblGrid, required)", "EG_ContentRowContent (0..unbounded)"]
+          },
+          "CT_Row": {
+            "children": ["tblPrEx (CT_TblPrEx, optional)", "trPr (CT_TrPr, optional)", "EG_ContentCellContent (0..unbounded)"]
+          },
+          "CT_Tc": {
+            "children": ["tcPr (CT_TcPr, optional)", "EG_BlockLevelElts (1..unbounded)"],
+            "note": "Cell MUST contain at least one block-level element (usually a paragraph)"
+          },
+          "CT_TblPrBase_key": [
+            "tblStyle (CT_String) - table style ID",
+            "tblW (CT_TblWidth) - table width",
+            "jc (CT_JcTable) - table alignment",
+            "tblBorders (CT_TblBorders)",
+            "shd (CT_Shd)",
+            "tblLayout (CT_TblLayoutType) - fixed/autofit",
+            "tblCellMar (CT_TblCellMar)",
+            "tblLook (CT_TblLook)"
+          ],
+          "CT_TblGrid": {
+            "children": ["gridCol (CT_TblGridCol, 0..unbounded)"],
+            "note": "Defines column widths. gridCol.w is in twips."
+          }
+        },
+        "section_properties": {
+          "CT_SectPr": {
+            "children": ["EG_HdrFtrReferences (0..6)", "EG_SectPrContents (optional)", "sectPrChange (optional)"]
+          },
+          "EG_SectPrContents_key": [
+            "type (CT_SectType) - nextPage/continuous/evenPage/oddPage/nextColumn",
+            "pgSz (CT_PageSz) - w, h (twips), orient (portrait/landscape)",
+            "pgMar (CT_PageMar) - top, right, bottom, left, header, footer, gutter (all twips)",
+            "cols (CT_Columns) - column layout",
+            "titlePg (CT_OnOff) - different first page header/footer",
+            "pgNumType (CT_PageNumber)",
+            "lnNumType (CT_LineNumber)",
+            "vAlign (CT_VerticalJc)"
+          ],
+          "CT_PageSz_note": "Default A4: w=11906, h=16838 twips. US Letter: w=12240, h=15840 twips."
+        },
+        "styles": {
+          "CT_Styles": {
+            "children": ["docDefaults (CT_DocDefaults, optional)", "latentStyles (CT_LatentStyles, optional)", "style (CT_Style, 0..unbounded)"]
+          },
+          "CT_Style": {
+            "key_attributes": ["type (ST_StyleType: paragraph/character/table/numbering)", "styleId (string)", "default (ST_OnOff)", "customStyle (ST_OnOff)"],
+            "key_children": ["name", "basedOn", "next", "link", "pPr", "rPr", "tblPr", "trPr", "tcPr", "tblStylePr"]
+          },
+          "ST_StyleType": "paragraph | character | table | numbering"
+        },
+        "numbering": {
+          "note": "Defined in separate numbering.xml part. CT_Numbering contains abstractNum and num elements.",
+          "status": "partially-extracted - need to read CT_Numbering, CT_AbstractNum, CT_Lvl"
+        },
+        "hyperlinks": {
+          "CT_Hyperlink": {
+            "note": "In EG_PContent. r:id references external relationship. Can also be internal anchor via anchor attribute."
+          }
+        },
+        "text": {
+          "CT_Text": {
+            "base": "xsd:string",
+            "attributes": ["xml:space (preserve/default) - CRITICAL: must be 'preserve' to retain leading/trailing spaces"]
+          }
+        }
+      },
+      "typescript_targets": [
+        { "concept": "CT_Document", "ts_target": "interface", "name": "WmlDocument", "priority": "P0" },
+        { "concept": "CT_Body", "ts_target": "interface", "name": "WmlBody", "priority": "P0" },
+        { "concept": "CT_P", "ts_target": "interface", "name": "WmlParagraph", "priority": "P0" },
+        { "concept": "CT_PPr", "ts_target": "interface", "name": "WmlParagraphProperties", "priority": "P0" },
+        { "concept": "CT_PPrBase", "ts_target": "interface", "name": "WmlParagraphPropertiesBase", "priority": "P0" },
+        { "concept": "CT_R", "ts_target": "interface", "name": "WmlRun", "priority": "P0" },
+        { "concept": "CT_RPr", "ts_target": "interface", "name": "WmlRunProperties", "priority": "P0" },
+        { "concept": "CT_Text", "ts_target": "interface", "name": "WmlText", "priority": "P0" },
+        { "concept": "CT_Br", "ts_target": "interface", "name": "WmlBreak", "priority": "P0" },
+        { "concept": "CT_Tbl", "ts_target": "interface", "name": "WmlTable", "priority": "P0" },
+        { "concept": "CT_Row", "ts_target": "interface", "name": "WmlTableRow", "priority": "P0" },
+        { "concept": "CT_Tc", "ts_target": "interface", "name": "WmlTableCell", "priority": "P0" },
+        { "concept": "CT_TblPr", "ts_target": "interface", "name": "WmlTableProperties", "priority": "P0" },
+        { "concept": "CT_TblGrid", "ts_target": "interface", "name": "WmlTableGrid", "priority": "P0" },
+        { "concept": "CT_TrPr", "ts_target": "interface", "name": "WmlTableRowProperties", "priority": "P1" },
+        { "concept": "CT_TcPr", "ts_target": "interface", "name": "WmlTableCellProperties", "priority": "P1" },
+        { "concept": "CT_SectPr", "ts_target": "interface", "name": "WmlSectionProperties", "priority": "P0" },
+        { "concept": "CT_PageSz", "ts_target": "interface", "name": "WmlPageSize", "priority": "P0" },
+        { "concept": "CT_PageMar", "ts_target": "interface", "name": "WmlPageMargins", "priority": "P0" },
+        { "concept": "CT_Styles", "ts_target": "interface", "name": "WmlStyles", "priority": "P0" },
+        { "concept": "CT_Style", "ts_target": "interface", "name": "WmlStyle", "priority": "P0" },
+        { "concept": "ST_StyleType", "ts_target": "type alias", "name": "WmlStyleType", "priority": "P0" },
+        { "concept": "CT_Fonts", "ts_target": "interface", "name": "WmlFonts", "priority": "P1" },
+        { "concept": "CT_Color", "ts_target": "interface", "name": "WmlColor", "priority": "P1" },
+        { "concept": "CT_Spacing (para)", "ts_target": "interface", "name": "WmlSpacing", "priority": "P1" },
+        { "concept": "CT_Ind", "ts_target": "interface", "name": "WmlIndentation", "priority": "P1" },
+        { "concept": "CT_Jc", "ts_target": "interface", "name": "WmlJustification", "priority": "P1" },
+        { "concept": "ST_Jc", "ts_target": "type alias", "name": "WmlJustificationValue", "priority": "P1" },
+        { "concept": "CT_Border", "ts_target": "interface", "name": "WmlBorder", "priority": "P1" },
+        { "concept": "CT_Shd", "ts_target": "interface", "name": "WmlShading", "priority": "P1" },
+        { "concept": "CT_NumPr", "ts_target": "interface", "name": "WmlNumberingProperties", "priority": "P1" },
+        { "concept": "CT_HdrFtrRef", "ts_target": "interface", "name": "WmlHeaderFooterRef", "priority": "P1" },
+        { "concept": "CT_HdrFtr", "ts_target": "interface", "name": "WmlHeaderFooter", "priority": "P1" },
+        { "concept": "CT_Hyperlink", "ts_target": "interface", "name": "WmlHyperlink", "priority": "P1" },
+        { "concept": "CT_Drawing", "ts_target": "interface", "name": "WmlDrawing", "priority": "P2" },
+        { "concept": "Document builder", "ts_target": "class", "name": "DocxBuilder", "priority": "P0", "note": "High-level API to construct DOCX documents" },
+        { "concept": "XML serializer", "ts_target": "class", "name": "WmlSerializer", "priority": "P0", "note": "Converts WML object model to XML strings" }
+      ],
+      "not_translated": [
+        "rsid attributes (rsidR, rsidRPr etc.) - revision tracking IDs, not needed for generation",
+        "CT_TrackChange and all tracked-change types - not in v1 scope",
+        "CT_SdtBlock/CT_SdtRun - structured document tags, not in v1 scope",
+        "CT_CustomXmlBlock/CT_CustomXmlRun - custom XML, not in v1 scope",
+        "CT_Ruby - East Asian ruby text, not in v1 scope",
+        "CT_AltChunk - embedded foreign content, not in v1 scope",
+        "CT_GlossaryDocument - building blocks, not in v1 scope",
+        "CT_Background - document background, not in v1 scope",
+        "CT_FramePr - legacy text frames, not in v1 scope",
+        "CT_EastAsianLayout - East Asian typography, not in v1 scope",
+        "CT_WritingStyle - grammar checker config, not in v1 scope",
+        "All ST_Border art values (apples, bats, etc.) - decorative borders, classify-only",
+        "CT_DocDefaults - default styles, deferred to v1.1",
+        "CT_LatentStyles - latent style definitions, deferred"
+      ],
+      "unresolved_questions": [
+        "CT_Numbering (numbering.xml) — source: 5TH EDITION PART1/wml.xsd unread sections. Need to read CT_Numbering, CT_AbstractNum, CT_Lvl for list support in v1.1.",
+        "CT_FtnEdn (footnotes/endnotes) — source: 5TH EDITION PART1/wml.xsd unread sections. Need to read CT_Footnotes, CT_Endnotes, CT_FtnEdnRef for v1.1.",
+        "CT_Drawing / wp:inline / wp:anchor — source: 5TH EDITION PART1/dml-wordprocessingDrawing.xsd (unread, 14942 bytes). Must be read before implementing image embedding in v1.1.",
+        "CT_FldChar / CT_SimpleField / CT_Hyperlink — source: 5TH EDITION PART1/wml.xsd unread sections. Needed for fields and hyperlinks in v1.1.",
+        "CT_Settings — source: 5TH EDITION PART1/wml.xsd unread sections. Needed for word/settings.xml in v1.1.",
+        "CT_FontTable / CT_Font — source: 5TH EDITION PART1/wml.xsd unread sections. Needed for word/fontTable.xml in v1.1.",
+        "CT_TcPr (table cell properties full detail) — source: 5TH EDITION PART1/wml.xsd unread sections. CT_TcPr children (gridSpan, vMerge, tcBorders, shd, noWrap, tcMar, textDirection, tcFitText, vAlign, hideMark) not yet extracted.",
+        "CT_PBdr (paragraph borders) — source: 5TH EDITION PART1/wml.xsd unread sections.",
+        "CT_Tabs detail — source: 5TH EDITION PART1/wml.xsd unread sections."
+      ]
+    },
+    {
+      "batch_id": "B3-Deferred",
+      "title": "Deferred Material Classification — SUPERSEDED by B4-B8 below",
+      "status": "classified-only",
+      "confidence": "high",
+      "deferred_groups": [
+        {
+          "group": "SpreadsheetML",
+          "files": ["sml.xsd (244KB)", "sml.rnc", "SpreadsheetML_*.rnc (19 files)"],
+          "reason": "XLSX support - future v2 scope",
+          "future_path": "Create src/xlsx/ module, implement CT_Workbook, CT_Worksheet, CT_SheetData, CT_Row, CT_Cell"
+        },
+        {
+          "group": "PresentationML",
+          "files": ["pml.xsd (82KB)", "pml.rnc", "PresentationML_*.rnc (13 files)"],
+          "reason": "PPTX support - future v3 scope",
+          "future_path": "Create src/pptx/ module, implement CT_Presentation, CT_Slide, CT_SlideLayout, CT_SlideMaster"
+        },
+        {
+          "group": "DrawingML (non-WP)",
+          "files": ["dml-chart.xsd", "dml-diagram.xsd", "dml-spreadsheetDrawing.xsd"],
+          "reason": "Charts and diagrams - future scope",
+          "future_path": "Extend src/drawing/ module"
+        },
+        {
+          "group": "VML (Transitional)",
+          "files": ["vml-main.xsd", "vml-officeDrawing.xsd", "vml-wordprocessingDrawing.xsd", "vml-spreadsheetDrawing.xsd", "vml-presentationDrawing.xsd"],
+          "reason": "Legacy VML - only needed for transitional DOCX compatibility, not strict",
+          "future_path": "Add to src/vml/ if transitional support needed"
+        },
+        {
+          "group": "Office Math",
+          "files": ["shared-math.xsd (24KB)", "shared-math.rnc"],
+          "reason": "OMML math equations - future scope",
+          "future_path": "Add to src/math/ module"
+        },
+        {
+          "group": "Digital Signatures",
+          "files": ["opc-digSig.xsd"],
+          "reason": "Package signing - future scope"
+        },
+        {
+          "group": "Bibliography",
+          "files": ["shared-bibliography.xsd"],
+          "reason": "Citation management - future scope"
+        },
+        {
+          "group": "Preset Shape/Style XML",
+          "files": ["presetShapeDefinitions.xml", "presetTextWarpDefinitions.xml", "presetTableStyles.xml", "presetCellStyles.xml"],
+          "reason": "DrawingML/SML presets - needed when implementing shapes/charts"
+        },
+        {
+          "group": "Earlier editions (1st-4th)",
+          "reason": "Superseded by 5th edition. May be useful for compatibility testing or diff analysis.",
+          "future_path": "Reference only if implementing transitional format support"
+        }
+      ]
+    }
+  ],
+
+  "advanced_mechanism_batches": [
+    {
+      "batch_id": "B4-Numbering",
+      "title": "Numbering Definitions",
+      "source_files": ["5TH EDITION PART1/wml.xsd lines 2955-3030"],
+      "status": "extracted",
+      "confidence": "high",
+      "structural_summary": {
+        "CT_Lvl": {
+          "attributes": ["ilvl (required, 0-8)", "tplc (optional)", "tentative (optional)"],
+          "children": ["start (CT_DecimalNumber)", "numFmt (CT_NumFmt)", "lvlRestart", "pStyle (link to paragraph style)", "isLgl", "suff (tab/space/nothing)", "lvlText (val pattern e.g. '%1.')", "lvlJc (CT_Jc)", "pPr (CT_PPrGeneral)", "rPr (CT_RPr)"]
+        },
+        "CT_AbstractNum": {
+          "attributes": ["abstractNumId (required)"],
+          "children": ["nsid", "multiLevelType (singleLevel/multilevel/hybridMultilevel)", "tmpl", "name", "styleLink", "numStyleLink", "lvl (0-9 levels)"]
+        },
+        "CT_Num": {
+          "attributes": ["numId (required)"],
+          "children": ["abstractNumId (required)", "lvlOverride (0-9)"]
+        },
+        "CT_Numbering": {
+          "children": ["numPicBullet (0+)", "abstractNum (0+)", "num (0+)", "numIdMacAtCleanup"]
+        },
+        "ST_NumberFormat_key_values": ["decimal", "upperRoman", "lowerRoman", "bullet", "none", "arabicAbjad", "arabicAlpha", "hebrew1", "hebrew2", "decimalZero"],
+        "key_constraints": [
+          "abstractNumId must be unique within numbering.xml",
+          "numId must be unique within numbering.xml",
+          "CT_Num.abstractNumId references CT_AbstractNum.abstractNumId",
+          "w:numPr on paragraph references CT_Num.numId and CT_Lvl.ilvl",
+          "lvlText uses %1, %2 etc. as level number placeholders"
+        ]
+      },
+      "typescript_targets": [
+        { "concept": "CT_Lvl", "ts_target": "interface", "name": "WmlNumberingLevel", "priority": "P0" },
+        { "concept": "CT_AbstractNum", "ts_target": "interface", "name": "WmlAbstractNum", "priority": "P0" },
+        { "concept": "CT_Num", "ts_target": "interface", "name": "WmlNum", "priority": "P0" },
+        { "concept": "CT_Numbering", "ts_target": "interface", "name": "WmlNumbering", "priority": "P0" },
+        { "concept": "ST_NumberFormat", "ts_target": "type alias", "name": "WmlNumberFormat", "priority": "P0" },
+        { "concept": "Numbering serializer", "ts_target": "function", "name": "serializeNumbering", "priority": "P0" },
+        { "concept": "Numbering builder API", "ts_target": "method", "name": "DocxBuilder.defineNumbering", "priority": "P0" }
+      ]
+    },
+    {
+      "batch_id": "B5-HeaderFooter",
+      "title": "Header and Footer Parts",
+      "source_files": ["5TH EDITION PART1/wml.xsd lines 1520-1560, 3257-3258"],
+      "status": "extracted",
+      "confidence": "high",
+      "structural_summary": {
+        "CT_HdrFtr": {
+          "content": "EG_BlockLevelElts (1..unbounded) — same block model as document body",
+          "root_elements": ["w:hdr", "w:ftr"]
+        },
+        "CT_HdrFtrRef": {
+          "extends": "CT_Rel",
+          "attributes": ["type (ST_HdrFtr: even/default/first)", "r:id (relationship ID)"]
+        },
+        "EG_HdrFtrReferences": {
+          "choice": ["headerReference (CT_HdrFtrRef)", "footerReference (CT_HdrFtrRef)"],
+          "in_sectPr": "0..6 occurrences before EG_SectPrContents"
+        },
+        "ST_HdrFtr": ["even", "default", "first"],
+        "key_constraints": [
+          "Header/footer parts are separate XML files (word/header1.xml etc.)",
+          "Each part has its own relationship entry in word/_rels/document.xml.rels",
+          "sectPr.headerReference links section to header part by rId and type",
+          "titlePg=true enables first-page header/footer",
+          "evenAndOddHeaders in settings enables even-page header/footer",
+          "Content type: application/vnd.openxmlformats-officedocument.wordprocessingml.header+xml"
+        ]
+      },
+      "typescript_targets": [
+        { "concept": "CT_HdrFtr", "ts_target": "interface", "name": "WmlHeaderFooterContent", "priority": "P0" },
+        { "concept": "CT_HdrFtrRef", "ts_target": "interface", "name": "WmlHeaderFooterRef", "priority": "P0" },
+        { "concept": "ST_HdrFtr", "ts_target": "type alias", "name": "WmlHeaderFooterType", "priority": "P0" },
+        { "concept": "Header serializer", "ts_target": "function", "name": "serializeHeader", "priority": "P0" },
+        { "concept": "Footer serializer", "ts_target": "function", "name": "serializeFooter", "priority": "P0" },
+        { "concept": "Builder API", "ts_target": "method", "name": "DocxBuilder.addHeader / addFooter", "priority": "P0" }
+      ]
+    },
+    {
+      "batch_id": "B6-Fields",
+      "title": "Field Infrastructure (fldChar, instrText, Hyperlink)",
+      "source_files": ["5TH EDITION PART1/wml.xsd lines 1155-1260"],
+      "status": "extracted",
+      "confidence": "high",
+      "structural_summary": {
+        "CT_FldChar": {
+          "attributes": ["fldCharType (begin/separate/end, required)", "fldLock (optional)", "dirty (optional)"],
+          "children": ["ffData (CT_FFData, optional)"]
+        },
+        "CT_SimpleField": {
+          "attributes": ["instr (required — field instruction string)", "fldLock", "dirty"],
+          "children": ["EG_PContent (0+)"]
+        },
+        "CT_Hyperlink": {
+          "attributes": ["r:id (external relationship)", "anchor (internal bookmark)", "tgtFrame", "tooltip", "docLocation", "history"],
+          "children": ["EG_PContent (0+)"]
+        },
+        "field_sequence_pattern": [
+          "w:r > w:fldChar fldCharType=begin",
+          "w:r > w:instrText (field instruction, xml:space=preserve)",
+          "w:r > w:fldChar fldCharType=separate",
+          "w:r > w:t (cached display value)",
+          "w:r > w:fldChar fldCharType=end"
+        ],
+        "common_field_instructions": {
+          "PAGE": "Current page number",
+          "NUMPAGES": "Total page count",
+          "TOC": "Table of contents — e.g. TOC \\o \"1-3\" \\h \\z \\u",
+          "SEQ": "Sequence counter — e.g. SEQ Figure \\* ARABIC",
+          "TC": "TOC entry — e.g. TC \"text\" \\f F"
+        }
+      },
+      "typescript_targets": [
+        { "concept": "CT_FldChar", "ts_target": "interface", "name": "WmlFldChar", "priority": "P0" },
+        { "concept": "instrText", "ts_target": "interface", "name": "WmlInstrText", "priority": "P0" },
+        { "concept": "CT_Hyperlink", "ts_target": "interface", "name": "WmlHyperlink", "priority": "P0" },
+        { "concept": "PAGE field helper", "ts_target": "function", "name": "pageNumberField", "priority": "P0" },
+        { "concept": "NUMPAGES field helper", "ts_target": "function", "name": "totalPagesField", "priority": "P0" },
+        { "concept": "Generic field helper", "ts_target": "function", "name": "fieldRuns", "priority": "P0" },
+        { "concept": "TOC field helper", "ts_target": "function", "name": "tableOfContents", "priority": "P1" }
+      ]
+    },
+    {
+      "batch_id": "B7-FootnotesEndnotes",
+      "title": "Footnotes and Endnotes",
+      "source_files": ["5TH EDITION PART1/wml.xsd lines 2480-2560, 3245-3258"],
+      "status": "extracted",
+      "confidence": "high",
+      "structural_summary": {
+        "CT_FtnEdn": {
+          "attributes": ["id (required, ST_DecimalNumber)", "type (optional: normal/separator/continuationSeparator/continuationNotice)"],
+          "children": ["EG_BlockLevelElts (1+) — same block model as body"]
+        },
+        "CT_FtnEdnRef": {
+          "attributes": ["id (required — matches CT_FtnEdn.id)", "customMarkFollows (optional)"],
+          "usage": "w:footnoteReference or w:endnoteReference in run content"
+        },
+        "CT_Footnotes": { "children": ["footnote (CT_FtnEdn, 0+)"] },
+        "CT_Endnotes": { "children": ["endnote (CT_FtnEdn, 0+)"] },
+        "CT_FtnProps": {
+          "children": ["pos (CT_FtnPos)", "numFmt (CT_NumFmt)", "numStart (CT_DecimalNumber)", "numRestart (CT_NumRestart: continuous/eachSect/eachPage)"]
+        },
+        "key_constraints": [
+          "footnotes.xml MUST contain separator (id=-1) and continuationSeparator (id=0) footnotes",
+          "endnotes.xml MUST contain separator (id=-1) and continuationSeparator (id=0) endnotes",
+          "User footnotes start at id=1",
+          "w:footnoteReference.id must match CT_FtnEdn.id in footnotes.xml",
+          "Content type: application/vnd.openxmlformats-officedocument.wordprocessingml.footnotes+xml"
+        ]
+      },
+      "typescript_targets": [
+        { "concept": "CT_FtnEdn", "ts_target": "interface", "name": "WmlFootnote", "priority": "P0" },
+        { "concept": "CT_FtnEdnRef", "ts_target": "interface", "name": "WmlFootnoteRef", "priority": "P0" },
+        { "concept": "CT_FtnProps", "ts_target": "interface", "name": "WmlFootnoteProperties", "priority": "P1" },
+        { "concept": "Footnotes serializer", "ts_target": "function", "name": "serializeFootnotes", "priority": "P0" },
+        { "concept": "Endnotes serializer", "ts_target": "function", "name": "serializeEndnotes", "priority": "P0" },
+        { "concept": "Builder API", "ts_target": "method", "name": "DocxBuilder.addFootnote / addEndnote", "priority": "P0" }
+      ]
+    },
+    {
+      "batch_id": "B8-Settings-RTL",
+      "title": "Document Settings and RTL/Arabic Refinements",
+      "source_files": ["5TH EDITION PART1/wml.xsd lines 755-800, 2733-2840"],
+      "status": "extracted",
+      "confidence": "high",
+      "structural_summary": {
+        "CT_Settings_key_fields": {
+          "evenAndOddHeaders": "CT_OnOff — enables even/odd page header variants",
+          "updateFields": "CT_OnOff — Word updates fields (TOC, PAGE) on open",
+          "footnotePr": "CT_FtnDocProps — global footnote configuration",
+          "endnotePr": "CT_EdnDocProps — global endnote configuration",
+          "themeFontLang": "CT_Language — document theme font language (val, eastAsia, bidi)",
+          "bidi": "CT_OnOff — document-level RTL (not in CT_Settings directly but in document element)",
+          "defaultTabStop": "CT_TwipsMeasure — default tab stop interval",
+          "captions": "CT_Captions — caption label definitions"
+        },
+        "CT_TextDirection": {
+          "values": ["tb (top-to-bottom)", "rl (right-to-left)", "lr (left-to-right)", "tbV", "rlV", "lrV"],
+          "used_in": ["CT_PPrBase (paragraph)", "CT_TcPr (table cell)", "EG_SectPrContents (section)"]
+        },
+        "CT_PageNumber": {
+          "attributes": ["fmt (ST_NumberFormat, default decimal)", "start (optional)", "chapStyle (optional)", "chapSep (optional)"],
+          "used_in": "EG_SectPrContents as w:pgNumType"
+        },
+        "key_constraints": [
+          "updateFields=true required for TOC and PAGE fields to be computed by Word",
+          "evenAndOddHeaders=true required for even-page headers to be used",
+          "themeFontLang.bidi='ar-SA' sets Arabic as the bidi language for theme fonts",
+          "textDirection on paragraph overrides section direction for that paragraph"
+        ]
+      },
+      "typescript_targets": [
+        { "concept": "CT_Settings (subset)", "ts_target": "interface", "name": "DocxSettings", "priority": "P0" },
+        { "concept": "CT_TextDirection", "ts_target": "type alias", "name": "WmlTextDirectionValue", "priority": "P0" },
+        { "concept": "CT_PageNumber", "ts_target": "interface", "name": "WmlPageNumbering", "priority": "P0" },
+        { "concept": "CT_DocDefaults", "ts_target": "interface", "name": "WmlDocumentDefaults", "priority": "P1" },
+        { "concept": "Settings serializer", "ts_target": "function", "name": "serializeSettings", "priority": "P0" },
+        { "concept": "Builder API", "ts_target": "method", "name": "DocxBuilder.configureSettings", "priority": "P0" },
+        { "concept": "Builder API", "ts_target": "method", "name": "DocxBuilder.setDocumentDefaults", "priority": "P1" }
+      ]
+    }
+  ]
+}

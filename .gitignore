@@ -1,0 +1,29 @@
+node_modules/
+dist/
+output/
+
+# Temp / debug files
+debug-*.js
+debug-*.ts
+test-arabic-post.js
+demo/test.js
+demo/test-output.docx
+*.docx
+
+# Compiled test artifacts (not needed in repo)
+tests/*.js
+tests/*.d.ts
+tests/*.js.map
+tsconfig.tsbuildinfo
+
+# Extracted XML fragments from examples
+examples/word/
+
+# Large ECMA spec packages (local reference only)
+ALL ECMA PACKAGES/
+
+# Misc
+all chat.txt
+all emca files.txt
+.DS_Store
+.kilo/

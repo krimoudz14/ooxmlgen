@@ -1,0 +1,1185 @@
+{
+  "_meta": {
+    "generated": "2026-04-01",
+    "purpose": "Hybrid per-file / grouped repository manifest for ECMA-376 OOXML packages",
+    "implementation_target": "DOCX / WordprocessingML v1 (Strict, 5th edition)",
+    "total_files_in_repo": {
+      "non_png": 961,
+      "png": 5290,
+      "total": 6251
+    },
+    "manifest_policy": {
+      "per_file_required_for": [
+        "All OPC / packaging schema files (.xsd, .rnc)",
+        "All shared-core OOXML schema files (.xsd, .rnc)",
+        "All WordprocessingML schema files (.xsd, .rnc)",
+        "All DrawingML files that touch Word (dml-wordprocessingDrawing, dml-main, dml-picture)",
+        "All VML files (Word-relevant for transitional support)",
+        "All files already deep-read or partially read",
+        "All files referenced in spec-extraction.json or SPEC_TRACEABILITY.md",
+        "All deferred Word-specific files needed in v1.1 (numbering, settings, font table, footnotes, endnotes, comments, drawing)",
+        "All XML data files (preset shapes, styles)",
+        "All prose spec documents (PDF, DOCX)",
+        "All auxiliary / root files",
+        "All binary files of unknown type"
+      ],
+      "grouped_allowed_for": [
+        "PNG decorative border art assets — 5290 files, ~104MB, zero runtime impact, all identical classification",
+        "SpreadsheetML entry-point .rnc stubs (SpreadsheetML_*.rnc) — tiny files 315-381 bytes each, all deferred, all identical structure: one-line include pointing to sml.rnc",
+        "PresentationML entry-point .rnc stubs (PresentationML_*.rnc) — tiny files 293-336 bytes each, all deferred, all identical structure: one-line include pointing to pml.rnc",
+        "DrawingML entry-point .rnc stubs (DrawingML_*.rnc) — tiny files 277-318 bytes each, all deferred, all identical structure: one-line include pointing to dml-main.rnc or dml-chart.rnc",
+        "Shared entry-point .rnc stubs (Shared_*.rnc) — tiny files 89-166 bytes each, all deferred, all identical structure: one-line include",
+        "Duplicate schema files in superseded editions (1st-4th) that are exact or near-exact copies of 5th edition files — classified only, no implementation impact"
+      ]
+    },
+    "unreadable_files": [
+      {
+        "path": "ALL ECMA PACKAGES/null",
+        "size": 22561,
+        "reason": "Filename is 'null'; binary content; magic bytes 89 50 4E 47 = PNG image. Misnamed PNG file.",
+        "action": "ignore-for-v1",
+        "read_status": "classified"
+      }
+    ],
+    "partially_read_files": [
+      {
+        "path": "ALL ECMA PACKAGES/ECMA-376_5th_edition/5TH EDITION PART1/wml.xsd",
+        "size": 163400,
+        "sections_read": [
+          "lines 1-300: namespace imports, CT_Empty, CT_OnOff, ST_LongHexNumber, ST_DecimalNumber, ST_HpsMeasure, ST_SignedTwipsMeasure, ST_HighlightColor, ST_HexColor, CT_Color, ST_Underline, ST_Border (full enum), CT_Border, ST_Shd, CT_Shd, CT_VerticalAlignRun, CT_FitText, CT_Em, CT_Language, CT_EastAsianLayout, ST_HeightRule, ST_Wrap, ST_VAnchor, ST_HAnchor, ST_DropCap, CT_FramePr, ST_TabJc, ST_TabTlc, CT_TabStop, ST_LineSpacingRule, CT_Spacing, CT_Ind, ST_Jc, ST_JcTable, CT_Jc, CT_JcTable, ST_View, ST_Zoom, ST_Proof, ST_DocType, ST_DocProtect",
+          "lines 700-1090: CT_PPrBase (all children), CT_PPrGeneral, CT_PPr",
+          "lines 755-800: ST_TextDirection (tb/rl/lr/tbV/rlV/lrV), CT_TextDirection, ST_TextAlignment, CT_TextAlignment — NOW READ for RTL/Arabic support",
+          "lines 1155-1260: CT_SimpleField, ST_FldCharType (begin/separate/end), CT_FldChar, CT_Hyperlink — NOW READ for field and hyperlink support",
+          "lines 1294-1370: ST_NumberFormat (full enum including arabicAbjad, arabicAlpha, hebrew1, hebrew2, decimal, upperRoman, lowerRoman, bullet, none, etc.) — NOW READ for page numbering and list numbering",
+          "lines 1355-1600: ST_PageOrientation, CT_PageSz, CT_PageMar, CT_PageBorders, CT_LineNumber, CT_PageNumber (fmt, start, chapStyle, chapSep), CT_Column, CT_Columns, ST_VerticalJc, CT_DocGrid, ST_HdrFtr, CT_HdrFtrRef, EG_HdrFtrReferences, CT_HdrFtr, EG_SectPrContents (full — including pgNumType, textDirection, bidi, rtlGutter), CT_SectPrBase, CT_SectPr, ST_BrType, ST_BrClear, CT_Br",
+          "lines 1520-1560: EG_HdrFtrReferences, CT_HdrFtr (body = EG_BlockLevelElts), EG_SectPrContents (full) — NOW READ confirming header/footer structure",
+          "lines 1667-1800: EG_RunInnerContent (all children including footnoteReference, endnoteReference, fldChar), CT_R, ST_Hint, ST_Theme, CT_Fonts, EG_RPrBase (all children), EG_RPrContent, CT_RPr, EG_RPr",
+          "lines 2033-2060: EG_ContentBlockContent, EG_ContentRowContent, EG_ContentCellContent",
+          "lines 2100-2200: EG_PContent (including fldSimple, hyperlink), CT_P",
+          "lines 2270-2470: CT_Tc, CT_TrPrBase, CT_TrPr, CT_Row, CT_TblLayoutType, CT_TblPPr, CT_TblCellMar, CT_TblBorders, CT_TblPrBase, CT_TblPr, CT_TblGrid, CT_Tbl, CT_TblLook",
+          "lines 2480-2560: CT_FtnEdnRef (id, customMarkFollows), CT_FtnEdnSepRef, CT_FtnEdn (type, id, EG_BlockLevelElts), EG_FtnEdnNumProps, CT_FtnProps (pos, numFmt, numStart, numRestart), CT_EdnProps, CT_FtnDocProps, CT_EdnDocProps — NOW READ for footnote/endnote support",
+          "lines 2733-2840: CT_Settings (full — evenAndOddHeaders, updateFields, footnotePr, endnotePr, themeFontLang, bidi, defaultTabStop, captions) — NOW READ for settings part",
+          "lines 2955-3030: CT_LevelSuffix, CT_LevelText, CT_Lvl (start, numFmt, lvlRestart, pStyle, isLgl, suff, lvlText, lvlJc, pPr, rPr, ilvl), ST_MultiLevelType, CT_AbstractNum (nsid, multiLevelType, tmpl, name, styleLink, numStyleLink, lvl×9, abstractNumId), CT_NumLvl, CT_Num (abstractNumId, lvlOverride, numId), CT_Numbering — NOW READ for numbering definitions",
+          "lines 3058-3120: CT_Style, CT_LsdException, CT_LatentStyles, CT_Styles",
+          "lines 3180-3240: EG_BlockLevelChunkElts, EG_BlockLevelElts, EG_RunLevelElts, CT_Body",
+          "lines 3240-3270: CT_Footnotes, CT_Endnotes, hdr/ftr root elements — NOW READ",
+          "lines 3390-3420: settings/webSettings/fonts/numbering/styles root elements, CT_Caption, CT_AutoCaption — NOW READ",
+          "lines 3434-3461: CT_DocumentBase, CT_Document, CT_GlossaryDocument, root element 'document'"
+        ],
+        "sections_not_read": [
+          "CT_TcPr full detail (tcBorders, noWrap, tcMar, textDirection, hideMark) — lines ~2230-2270 — still needed for Batch 1",
+          "CT_FontTable / CT_Font — lines ~3130-3180 — deferred to Batch 5",
+          "CT_Comments / CT_Comment — lines ~3220-3245 — deferred",
+          "CT_Drawing / CT_Inline / CT_Anchor — dml-wordprocessingDrawing.xsd — deferred to Batch 4+",
+          "CT_FFData / CT_FFCheckBox / CT_FFDDList / CT_FFTextInput — form fields — out of scope"
+        ],
+        "impact": "All mechanisms for Batches 1-5 are now source-grounded. CT_TcPr full detail still needed for Batch 1 table cell completion."
+      }
+    ]
+  },
+
+  "root_files": [
+    {
+      "path": "ALL ECMA PACKAGES/.gitignore",
+      "ext": ".gitignore", "size": 80, "edition": "n/a",
+      "family": "auxiliary", "action": "ignore-for-v1",
+      "read_status": "classified", "implementation_relevance": "not-for-docx",
+      "reason": "Git configuration file"
+    },
+    {
+      "path": "ALL ECMA PACKAGES/null",
+      "ext": "none", "size": 22561, "edition": "n/a",
+      "family": "image", "action": "ignore-for-v1",
+      "read_status": "classified", "implementation_relevance": "not-for-docx",
+      "reason": "Misnamed PNG file (magic bytes 89 50 4E 47). No normative content."
+    },
+    {
+      "path": "ALL ECMA PACKAGES/OpenXML-White-Paper.pdf",
+      "ext": ".pdf", "size": 256899, "edition": "n/a",
+      "family": "prose", "action": "classify-only",
+      "read_status": "classified", "implementation_relevance": "not-for-docx",
+      "reason": "Marketing whitepaper. No normative schema content."
+    },
+    {
+      "path": "ALL ECMA PACKAGES/README.md",
+      "ext": ".md", "size": 735, "edition": "n/a",
+      "family": "auxiliary", "action": "read-light",
+      "read_status": "fully read", "implementation_relevance": "not-for-docx",
+      "reason": "Project overview. Confirms editions 1-4 present. No normative content.",
+      "notes": "Incorrectly states only editions 1-4 present; 5th edition also present in repo."
+    }
+  ],
+
+  "edition_5th_part2_opc": {
+    "_section": "5TH EDITION PART2 — Open Packaging Conventions (all per-file)",
+    "path": "ALL ECMA PACKAGES/ECMA-376_5th_edition/5TH EDITION PART2",
+    "edition": "5th",
+    "files": [
+      {
+        "path": "5TH EDITION PART2/opc-contentTypes.xsd",
+        "ext": ".xsd", "size": 2005, "edition": "5th",
+        "family": "packaging", "action": "read-deep",
+        "read_status": "fully read", "implementation_relevance": "now",
+        "reason": "CRITICAL. Defines [Content_Types].xml schema. CT_Types (root), CT_Default (extension→contentType), CT_Override (partName→contentType), ST_ContentType, ST_Extension.",
+        "notes": "Namespace: http://schemas.openxmlformats.org/package/2006/content-types. Every OOXML package requires this file."
+      },
+      {
+        "path": "5TH EDITION PART2/opc-contentTypes.rnc",
+        "ext": ".rnc", "size": 1053, "edition": "5th",
+        "family": "packaging", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "RELAX NG equivalent of opc-contentTypes.xsd. XSD is authoritative for implementation."
+      },
+      {
+        "path": "5TH EDITION PART2/opc-relationships.xsd",
+        "ext": ".xsd", "size": 1377, "edition": "5th",
+        "family": "packaging", "action": "read-deep",
+        "read_status": "fully read", "implementation_relevance": "now",
+        "reason": "CRITICAL. Defines .rels file schema. CT_Relationships (root), CT_Relationship (Id/xsd:ID, Type/URI, Target/URI, TargetMode/Internal|External), ST_TargetMode.",
+        "notes": "Namespace: http://schemas.openxmlformats.org/package/2006/relationships. Id must be unique within a .rels file (xsd:ID constraint)."
+      },
+      {
+        "path": "5TH EDITION PART2/opc-relationships.rnc",
+        "ext": ".rnc", "size": 493, "edition": "5th",
+        "family": "packaging", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "RELAX NG equivalent of opc-relationships.xsd. XSD is authoritative."
+      },
+      {
+        "path": "5TH EDITION PART2/opc-coreProperties.xsd",
+        "ext": ".xsd", "size": 2565, "edition": "5th",
+        "family": "packaging", "action": "read-deep",
+        "read_status": "fully read", "implementation_relevance": "now",
+        "reason": "Defines docProps/core.xml schema. CT_CoreProperties (all), CT_Keywords, CT_Keyword. Uses Dublin Core (dc:, dcterms:). Fields: category, contentStatus, dcterms:created, dc:creator, dc:description, dc:identifier, keywords, dc:language, lastModifiedBy, lastPrinted, dcterms:modified, revision, dc:subject, dc:title, version.",
+        "notes": "Namespace: http://schemas.openxmlformats.org/package/2006/metadata/core-properties. All fields optional."
+      },
+      {
+        "path": "5TH EDITION PART2/opc-coreProperties.rnc",
+        "ext": ".rnc", "size": 1384, "edition": "5th",
+        "family": "packaging", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "RELAX NG equivalent. XSD is authoritative."
+      },
+      {
+        "path": "5TH EDITION PART2/opc-digSig.xsd",
+        "ext": ".xsd", "size": 2905, "edition": "5th",
+        "family": "packaging", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Digital signature schema. Not needed for v1 DOCX generation. Relevant if package signing is added in future."
+      },
+      {
+        "path": "5TH EDITION PART2/opc-digSig.rnc",
+        "ext": ".rnc", "size": 2272, "edition": "5th",
+        "family": "packaging", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "RELAX NG equivalent of opc-digSig.xsd. Deferred with it."
+      },
+      {
+        "path": "5TH EDITION PART2/xml.rnc",
+        "ext": ".rnc", "size": 268, "edition": "5th",
+        "family": "schema", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "Declares xml: namespace prefix for RELAX NG schemas. No TypeScript impact."
+      },
+      {
+        "path": "5TH EDITION PART2/Ecma Office Open XML Part 2 - Open Packaging Conventions.pdf",
+        "ext": ".pdf", "size": 2009726, "edition": "5th",
+        "family": "prose", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "OPC specification prose. Normative rules already extracted from XSD schemas. Binary PDF not machine-parseable."
+      }
+    ]
+  },
+
+  "edition_5th_part3_mce": {
+    "_section": "5TH EDITION PART3 — Markup Compatibility and Extensibility",
+    "path": "ALL ECMA PACKAGES/ECMA-376_5th_edition/5TH EDITION PART3",
+    "edition": "5th",
+    "files": [
+      {
+        "path": "5TH EDITION PART3/Ecma Office Open XML Part 3 - Markup Compatibility and Extensibility.pdf",
+        "ext": ".pdf", "size": 864652, "edition": "5th",
+        "family": "prose", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "MCE spec defines mc:AlternateContent, mc:Choice, mc:Fallback. Relevant if implementing compatibility markup for future Word features. Not needed for v1 strict DOCX generation."
+      }
+    ]
+  },
+
+  "edition_5th_part1_shared_core": {
+    "_section": "5TH EDITION PART1 — Shared Core OOXML schemas (all per-file)",
+    "path": "ALL ECMA PACKAGES/ECMA-376_5th_edition/5TH EDITION PART1",
+    "edition": "5th",
+    "files": [
+      {
+        "path": "5TH EDITION PART1/shared-commonSimpleTypes.xsd",
+        "ext": ".xsd", "size": 4831, "edition": "5th",
+        "family": "shared-core", "action": "read-deep",
+        "read_status": "fully read", "implementation_relevance": "now",
+        "reason": "CRITICAL. Defines all shared primitive types used across WML/SML/PML. ST_Lang, ST_HexColorRGB, ST_Panose, ST_CalendarType, ST_Guid, ST_OnOff, ST_String, ST_XmlName, ST_UnsignedDecimalNumber, ST_TwipsMeasure, ST_VerticalAlignRun, ST_Xstring, ST_XAlign, ST_YAlign, ST_ConformanceClass, ST_UniversalMeasure, ST_PositiveUniversalMeasure, ST_Percentage, ST_FixedPercentage, ST_PositivePercentage, ST_PositiveFixedPercentage.",
+        "notes": "Namespace: http://purl.oclc.org/ooxml/officeDocument/sharedTypes. ST_TwipsMeasure is the primary measurement unit for WML."
+      },
+      {
+        "path": "5TH EDITION PART1/shared-commonSimpleTypes.rnc",
+        "ext": ".rnc", "size": 2310, "edition": "5th",
+        "family": "shared-core", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "RELAX NG equivalent. XSD is authoritative."
+      },
+      {
+        "path": "5TH EDITION PART1/shared-relationshipReference.xsd",
+        "ext": ".xsd", "size": 1327, "edition": "5th",
+        "family": "shared-core", "action": "read-deep",
+        "read_status": "fully read", "implementation_relevance": "now",
+        "reason": "CRITICAL. Defines ST_RelationshipId and all r:* attributes (r:id, r:embed, r:link, r:blip, r:href, r:pict, r:dm, r:lo, r:qs, r:cs, r:topLeft, r:topRight, r:bottomLeft, r:bottomRight). Used on hyperlinks, images, headers, footers throughout WML.",
+        "notes": "Namespace: http://purl.oclc.org/ooxml/officeDocument/relationships."
+      },
+      {
+        "path": "5TH EDITION PART1/shared-relationshipReference.rnc",
+        "ext": ".rnc", "size": 1041, "edition": "5th",
+        "family": "shared-core", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "RELAX NG equivalent. XSD is authoritative."
+      },
+      {
+        "path": "5TH EDITION PART1/shared-documentPropertiesExtended.xsd",
+        "ext": ".xsd", "size": 3457, "edition": "5th",
+        "family": "shared-core", "action": "read-deep",
+        "read_status": "fully read", "implementation_relevance": "now",
+        "reason": "Defines docProps/app.xml schema. CT_Properties with: Template, Manager, Company, Pages, Words, Characters, PresentationFormat, Lines, Paragraphs, Slides, Notes, TotalTime, HiddenSlides, MMClips, ScaleCrop, HeadingPairs, TitlesOfParts, LinksUpToDate, CharactersWithSpaces, SharedDoc, HyperlinkBase, HLinks, HyperlinksChanged, DigSig, Application, AppVersion, DocSecurity.",
+        "notes": "Namespace: http://purl.oclc.org/ooxml/officeDocument/extendedProperties. All fields optional."
+      },
+      {
+        "path": "5TH EDITION PART1/shared-documentPropertiesExtended.rnc",
+        "ext": ".rnc", "size": 1718, "edition": "5th",
+        "family": "shared-core", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "RELAX NG equivalent. XSD is authoritative."
+      },
+      {
+        "path": "5TH EDITION PART1/shared-documentPropertiesCustom.xsd",
+        "ext": ".xsd", "size": 2534, "edition": "5th",
+        "family": "shared-core", "action": "read-light",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Defines docProps/custom.xml schema for custom document properties. Not needed for v1 but part of standard DOCX package structure. Deferred to v1.1.",
+        "notes": "Namespace: http://purl.oclc.org/ooxml/officeDocument/customProperties."
+      },
+      {
+        "path": "5TH EDITION PART1/shared-documentPropertiesCustom.rnc",
+        "ext": ".rnc", "size": 1257, "edition": "5th",
+        "family": "shared-core", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "RELAX NG equivalent. XSD is authoritative."
+      },
+      {
+        "path": "5TH EDITION PART1/shared-documentPropertiesVariantTypes.xsd",
+        "ext": ".xsd", "size": 7459, "edition": "5th",
+        "family": "shared-core", "action": "read-light",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Defines variant types (vt:vector, vt:blob, vt:variant etc.) used by custom and extended properties. Needed when implementing custom properties in v1.1.",
+        "notes": "Namespace: http://purl.oclc.org/ooxml/officeDocument/docPropsVTypes."
+      },
+      {
+        "path": "5TH EDITION PART1/shared-documentPropertiesVariantTypes.rnc",
+        "ext": ".rnc", "size": 3889, "edition": "5th",
+        "family": "shared-core", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "RELAX NG equivalent. XSD is authoritative."
+      },
+      {
+        "path": "5TH EDITION PART1/shared-customXmlSchemaProperties.xsd",
+        "ext": ".xsd", "size": 856, "edition": "5th",
+        "family": "shared-core", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Defines schema library properties for custom XML. Imported by wml.xsd (sl: namespace). Not needed for v1 generation but must be acknowledged as a wml.xsd dependency.",
+        "notes": "Namespace: http://purl.oclc.org/ooxml/schemaLibrary/main. Imported by wml.xsd."
+      },
+      {
+        "path": "5TH EDITION PART1/shared-customXmlSchemaProperties.rnc",
+        "ext": ".rnc", "size": 597, "edition": "5th",
+        "family": "shared-core", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "RELAX NG equivalent."
+      },
+      {
+        "path": "5TH EDITION PART1/shared-customXmlDataProperties.xsd",
+        "ext": ".xsd", "size": 1225, "edition": "5th",
+        "family": "shared-core", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Defines custom XML data storage properties. Used by CT_CustomXmlBlock in WML. Not needed for v1 generation."
+      },
+      {
+        "path": "5TH EDITION PART1/shared-customXmlDataProperties.rnc",
+        "ext": ".rnc", "size": 691, "edition": "5th",
+        "family": "shared-core", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "RELAX NG equivalent."
+      },
+      {
+        "path": "5TH EDITION PART1/shared-additionalCharacteristics.xsd",
+        "ext": ".xsd", "size": 1245, "edition": "5th",
+        "family": "shared-core", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "Defines additional grammar checker characteristics. No impact on DOCX generation."
+      },
+      {
+        "path": "5TH EDITION PART1/shared-additionalCharacteristics.rnc",
+        "ext": ".rnc", "size": 862, "edition": "5th",
+        "family": "shared-core", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "RELAX NG equivalent."
+      },
+      {
+        "path": "5TH EDITION PART1/shared-bibliography.xsd",
+        "ext": ".xsd", "size": 7280, "edition": "5th",
+        "family": "shared-core", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Defines bibliography/citation schema. Used by CT_Sources in WML. Not needed for v1. Future citation support."
+      },
+      {
+        "path": "5TH EDITION PART1/shared-bibliography.rnc",
+        "ext": ".rnc", "size": 4268, "edition": "5th",
+        "family": "shared-core", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "RELAX NG equivalent."
+      },
+      {
+        "path": "5TH EDITION PART1/shared-math.xsd",
+        "ext": ".xsd", "size": 23786, "edition": "5th",
+        "family": "shared-core", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Defines Office Math Markup Language (OMML). Imported by wml.xsd (m: namespace). Not needed for v1. Future math equation support.",
+        "notes": "Namespace: http://purl.oclc.org/ooxml/officeDocument/math. Imported by wml.xsd."
+      },
+      {
+        "path": "5TH EDITION PART1/shared-math.rnc",
+        "ext": ".rnc", "size": 9296, "edition": "5th",
+        "family": "shared-core", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "RELAX NG equivalent."
+      }
+    ]
+  },
+
+  "edition_5th_part1_wml": {
+    "_section": "5TH EDITION PART1 — WordprocessingML schemas (all per-file)",
+    "path": "ALL ECMA PACKAGES/ECMA-376_5th_edition/5TH EDITION PART1",
+    "edition": "5th",
+    "files": [
+      {
+        "path": "5TH EDITION PART1/wml.xsd",
+        "ext": ".xsd", "size": 163400, "edition": "5th",
+        "family": "word", "action": "read-deep",
+        "read_status": "partially read",
+        "read_sections": "See _meta.partially_read_files for detail",
+        "implementation_relevance": "now",
+        "reason": "PRIMARY IMPLEMENTATION SOURCE. Defines the entire WordprocessingML Strict schema. Root element: w:document (CT_Document). Contains all paragraph, run, table, section, style, numbering, header/footer, footnote, field, drawing definitions.",
+        "notes": "Namespace: http://purl.oclc.org/ooxml/wordprocessingml/main. Strict conformance class. 163KB — largest single implementation file."
+      },
+      {
+        "path": "5TH EDITION PART1/wml.rnc",
+        "ext": ".rnc", "size": 76010, "edition": "5th",
+        "family": "word", "action": "read-light",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "RELAX NG equivalent of wml.xsd. Useful as cross-reference for ambiguous XSD constructs. Not primary source."
+      },
+      {
+        "path": "5TH EDITION PART1/WordprocessingML_Main_Document.rnc",
+        "ext": ".rnc", "size": 429, "edition": "5th",
+        "family": "word", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "Entry-point stub: includes wml.rnc and declares the root element for word/document.xml. No additional schema content."
+      },
+      {
+        "path": "5TH EDITION PART1/WordprocessingML_Style_Definitions.rnc",
+        "ext": ".rnc", "size": 427, "edition": "5th",
+        "family": "word", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "Entry-point stub for word/styles.xml. No additional schema content beyond wml.rnc."
+      },
+      {
+        "path": "5TH EDITION PART1/WordprocessingML_Numbering_Definitions.rnc",
+        "ext": ".rnc", "size": 430, "edition": "5th",
+        "family": "word", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Entry-point stub for word/numbering.xml. Deferred — numbering support is v1.1."
+      },
+      {
+        "path": "5TH EDITION PART1/WordprocessingML_Document_Settings.rnc",
+        "ext": ".rnc", "size": 429, "edition": "5th",
+        "family": "word", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Entry-point stub for word/settings.xml. Deferred — settings part is v1.1."
+      },
+      {
+        "path": "5TH EDITION PART1/WordprocessingML_Font_Table.rnc",
+        "ext": ".rnc", "size": 426, "edition": "5th",
+        "family": "word", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Entry-point stub for word/fontTable.xml. Deferred — font table is v1.1."
+      },
+      {
+        "path": "5TH EDITION PART1/WordprocessingML_Header.rnc",
+        "ext": ".rnc", "size": 424, "edition": "5th",
+        "family": "word", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Entry-point stub for word/header*.xml. Deferred — headers are v1.1."
+      },
+      {
+        "path": "5TH EDITION PART1/WordprocessingML_Footer.rnc",
+        "ext": ".rnc", "size": 424, "edition": "5th",
+        "family": "word", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Entry-point stub for word/footer*.xml. Deferred — footers are v1.1."
+      },
+      {
+        "path": "5TH EDITION PART1/WordprocessingML_Footnotes.rnc",
+        "ext": ".rnc", "size": 430, "edition": "5th",
+        "family": "word", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Entry-point stub for word/footnotes.xml. Deferred — footnotes are v1.1."
+      },
+      {
+        "path": "5TH EDITION PART1/WordprocessingML_Endnotes.rnc",
+        "ext": ".rnc", "size": 429, "edition": "5th",
+        "family": "word", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Entry-point stub for word/endnotes.xml. Deferred — endnotes are v1.1."
+      },
+      {
+        "path": "5TH EDITION PART1/WordprocessingML_Comments.rnc",
+        "ext": ".rnc", "size": 429, "edition": "5th",
+        "family": "word", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Entry-point stub for word/comments.xml. Deferred — comments are v1.1."
+      },
+      {
+        "path": "5TH EDITION PART1/WordprocessingML_Glossary_Document.rnc",
+        "ext": ".rnc", "size": 437, "edition": "5th",
+        "family": "word", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Entry-point stub for word/glossary/document.xml (building blocks). Not needed for v1."
+      },
+      {
+        "path": "5TH EDITION PART1/WordprocessingML_Web_Settings.rnc",
+        "ext": ".rnc", "size": 432, "edition": "5th",
+        "family": "word", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "Entry-point stub for word/webSettings.xml. Web settings not relevant for DOCX generation."
+      },
+      {
+        "path": "5TH EDITION PART1/WordprocessingML_Mail_Merge_Recipient_Data.rnc",
+        "ext": ".rnc", "size": 431, "edition": "5th",
+        "family": "word", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "Entry-point stub for mail merge data. Not relevant for DOCX generation."
+      }
+    ]
+  },
+
+  "edition_5th_part1_drawingml": {
+    "_section": "5TH EDITION PART1 — DrawingML schemas (all per-file)",
+    "path": "ALL ECMA PACKAGES/ECMA-376_5th_edition/5TH EDITION PART1",
+    "edition": "5th",
+    "files": [
+      {
+        "path": "5TH EDITION PART1/dml-wordprocessingDrawing.xsd",
+        "ext": ".xsd", "size": 14942, "edition": "5th",
+        "family": "drawingml", "action": "read-deep",
+        "read_status": "unread", "implementation_relevance": "later",
+        "reason": "Defines wp:inline and wp:anchor — the two drawing containers used inside w:drawing in WML runs. Required for image embedding in v1.1. Imported by wml.xsd (wp: namespace).",
+        "notes": "Namespace: http://purl.oclc.org/ooxml/drawingml/wordprocessingDrawing. Must be read before implementing image support."
+      },
+      {
+        "path": "5TH EDITION PART1/dml-wordprocessingDrawing.rnc",
+        "ext": ".rnc", "size": 6765, "edition": "5th",
+        "family": "drawingml", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "RELAX NG equivalent."
+      },
+      {
+        "path": "5TH EDITION PART1/dml-main.xsd",
+        "ext": ".xsd", "size": 153356, "edition": "5th",
+        "family": "drawingml", "action": "read-light",
+        "read_status": "unread", "implementation_relevance": "later",
+        "reason": "Core DrawingML schema. Defines CT_GraphicalObject, CT_BlipFillProperties, CT_ShapeProperties, CT_Transform2D, CT_PositiveSize2D, CT_Point2D, CT_PresetGeometry2D, CT_SolidColorFillProperties, CT_SchemeColor, CT_SRgbColor, CT_OfficeArtExtensionList. Subset needed for image embedding in v1.1.",
+        "notes": "Namespace: http://purl.oclc.org/ooxml/drawingml/main. 153KB — only the image-relevant subset needed for v1.1."
+      },
+      {
+        "path": "5TH EDITION PART1/dml-main.rnc",
+        "ext": ".rnc", "size": 68576, "edition": "5th",
+        "family": "drawingml", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "RELAX NG equivalent."
+      },
+      {
+        "path": "5TH EDITION PART1/dml-picture.xsd",
+        "ext": ".xsd", "size": 1179, "edition": "5th",
+        "family": "drawingml", "action": "read-light",
+        "read_status": "unread", "implementation_relevance": "later",
+        "reason": "Defines pic:pic element (CT_Picture) used for inline images in DOCX. Small file — needed for v1.1 image support.",
+        "notes": "Namespace: http://purl.oclc.org/ooxml/drawingml/picture."
+      },
+      {
+        "path": "5TH EDITION PART1/dml-picture.rnc",
+        "ext": ".rnc", "size": 730, "edition": "5th",
+        "family": "drawingml", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "RELAX NG equivalent."
+      },
+      {
+        "path": "5TH EDITION PART1/dml-chart.xsd",
+        "ext": ".xsd", "size": 74388, "edition": "5th",
+        "family": "drawingml", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Chart schema. Not needed for DOCX v1 or v1.1. Future chart support."
+      },
+      {
+        "path": "5TH EDITION PART1/dml-chart.rnc",
+        "ext": ".rnc", "size": 34003, "edition": "5th",
+        "family": "drawingml", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "RELAX NG equivalent."
+      },
+      {
+        "path": "5TH EDITION PART1/dml-chartDrawing.xsd",
+        "ext": ".xsd", "size": 6902, "edition": "5th",
+        "family": "drawingml", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Chart drawing schema. Deferred with dml-chart.xsd."
+      },
+      {
+        "path": "5TH EDITION PART1/dml-chartDrawing.rnc",
+        "ext": ".rnc", "size": 3358, "edition": "5th",
+        "family": "drawingml", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "RELAX NG equivalent."
+      },
+      {
+        "path": "5TH EDITION PART1/dml-diagram.xsd",
+        "ext": ".xsd", "size": 52278, "edition": "5th",
+        "family": "drawingml", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "SmartArt diagram schema. Not needed for DOCX v1 or v1.1."
+      },
+      {
+        "path": "5TH EDITION PART1/dml-diagram.rnc",
+        "ext": ".rnc", "size": 22510, "edition": "5th",
+        "family": "drawingml", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "RELAX NG equivalent."
+      },
+      {
+        "path": "5TH EDITION PART1/dml-lockedCanvas.xsd",
+        "ext": ".xsd", "size": 558, "edition": "5th",
+        "family": "drawingml", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "Locked canvas container. Not needed for DOCX generation."
+      },
+      {
+        "path": "5TH EDITION PART1/dml-lockedCanvas.rnc",
+        "ext": ".rnc", "size": 556, "edition": "5th",
+        "family": "drawingml", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "RELAX NG equivalent."
+      },
+      {
+        "path": "5TH EDITION PART1/dml-spreadsheetDrawing.xsd",
+        "ext": ".xsd", "size": 8786, "edition": "5th",
+        "family": "drawingml", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "SpreadsheetML drawing anchors. Deferred with SML."
+      },
+      {
+        "path": "5TH EDITION PART1/dml-spreadsheetDrawing.rnc",
+        "ext": ".rnc", "size": 4347, "edition": "5th",
+        "family": "drawingml", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "RELAX NG equivalent."
+      }
+    ]
+  },
+
+  "edition_5th_part1_sml_pml": {
+    "_section": "5TH EDITION PART1 — SpreadsheetML and PresentationML schemas (all per-file)",
+    "path": "ALL ECMA PACKAGES/ECMA-376_5th_edition/5TH EDITION PART1",
+    "edition": "5th",
+    "files": [
+      {
+        "path": "5TH EDITION PART1/sml.xsd",
+        "ext": ".xsd", "size": 244208, "edition": "5th",
+        "family": "excel", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "SpreadsheetML Strict schema. Full XLSX support is v2 scope. Architecture must remain extensible for this."
+      },
+      {
+        "path": "5TH EDITION PART1/sml.rnc",
+        "ext": ".rnc", "size": 138446, "edition": "5th",
+        "family": "excel", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "RELAX NG equivalent."
+      },
+      {
+        "path": "5TH EDITION PART1/pml.xsd",
+        "ext": ".xsd", "size": 81795, "edition": "5th",
+        "family": "powerpoint", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "PresentationML Strict schema. Full PPTX support is v3 scope."
+      },
+      {
+        "path": "5TH EDITION PART1/pml.rnc",
+        "ext": ".rnc", "size": 37629, "edition": "5th",
+        "family": "powerpoint", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "RELAX NG equivalent."
+      }
+    ]
+  },
+
+  "edition_5th_part1_xml_data": {
+    "_section": "5TH EDITION PART1 — XML data files and miscellaneous (all per-file)",
+    "path": "ALL ECMA PACKAGES/ECMA-376_5th_edition/5TH EDITION PART1",
+    "edition": "5th",
+    "files": [
+      {
+        "path": "5TH EDITION PART1/presetShapeDefinitions.xml",
+        "ext": ".xml", "size": 559368, "edition": "5th",
+        "family": "xml", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "DrawingML preset shape geometry definitions. 559KB XML. Needed when implementing shape rendering. Not needed for v1 or v1.1 text/table DOCX."
+      },
+      {
+        "path": "5TH EDITION PART1/presetTextWarpDefinitions.xml",
+        "ext": ".xml", "size": 51599, "edition": "5th",
+        "family": "xml", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "DrawingML text warp geometry definitions. Needed for text-on-path effects. Not needed for v1."
+      },
+      {
+        "path": "5TH EDITION PART1/presetTableStyles.xml",
+        "ext": ".xml", "size": 537455, "edition": "5th",
+        "family": "xml", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "SpreadsheetML preset table style definitions. Deferred with SML."
+      },
+      {
+        "path": "5TH EDITION PART1/presetCellStyles.xml",
+        "ext": ".xml", "size": 115925, "edition": "5th",
+        "family": "xml", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "SpreadsheetML preset cell style definitions. Deferred with SML."
+      },
+      {
+        "path": "5TH EDITION PART1/PivotTableFormats.xlsx",
+        "ext": ".xlsx", "size": 85332, "edition": "5th",
+        "family": "asset", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "Sample XLSX file for pivot table formats. Binary. No normative schema content."
+      },
+      {
+        "path": "5TH EDITION PART1/any.rnc",
+        "ext": ".rnc", "size": 97, "edition": "5th",
+        "family": "schema", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "Wildcard RELAX NG pattern (any element from any namespace). Used by RELAX NG schemas as a catch-all. No TypeScript impact."
+      },
+      {
+        "path": "5TH EDITION PART1/xml.rnc",
+        "ext": ".rnc", "size": 268, "edition": "5th",
+        "family": "schema", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "Declares xml: namespace prefix for RELAX NG schemas. No TypeScript impact."
+      },
+      {
+        "path": "5TH EDITION PART1/Ecma Office Open XML Part 1 - Fundamentals And Markup Language Reference.pdf",
+        "ext": ".pdf", "size": 35304993, "edition": "5th",
+        "family": "prose", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "Primary spec prose document. 35MB binary PDF. Not machine-parseable. All normative rules extracted from XSD schemas directly."
+      }
+    ]
+  },
+
+  "edition_5th_part1_grouped_stubs": {
+    "_section": "5TH EDITION PART1 — Grouped entry-point stub .rnc files",
+    "path": "ALL ECMA PACKAGES/ECMA-376_5th_edition/5TH EDITION PART1",
+    "edition": "5th",
+    "grouped_entries": [
+      {
+        "group": "SpreadsheetML entry-point stubs",
+        "pattern": "SpreadsheetML_*.rnc",
+        "count": 19,
+        "size_range_bytes": "315-381",
+        "files": [
+          "SpreadsheetML_Calculation_Chain.rnc (338)",
+          "SpreadsheetML_Chartsheet.rnc (339)",
+          "SpreadsheetML_Comments.rnc (337)",
+          "SpreadsheetML_Connections.rnc (340)",
+          "SpreadsheetML_Custom_XML_Mappings.rnc (336)",
+          "SpreadsheetML_Dialogsheet.rnc (340)",
+          "SpreadsheetML_Drawing.rnc (315)",
+          "SpreadsheetML_External_Workbook_References.rnc (341)",
+          "SpreadsheetML_Metadata.rnc (337)",
+          "SpreadsheetML_Pivot_Table.rnc (349)",
+          "SpreadsheetML_Pivot_Table_Cache_Definition.rnc (349)",
+          "SpreadsheetML_Pivot_Table_Cache_Records.rnc (346)",
+          "SpreadsheetML_Query_Table.rnc (339)",
+          "SpreadsheetML_Shared_String_Table.rnc (332)",
+          "SpreadsheetML_Shared_Workbook_Revision_Headers.rnc (336)",
+          "SpreadsheetML_Shared_Workbook_Revision_Log.rnc (338)",
+          "SpreadsheetML_Shared_Workbook_User_Data.rnc (334)",
+          "SpreadsheetML_Single_Cell_Table_Definitions.rnc (343)",
+          "SpreadsheetML_Styles.rnc (339)",
+          "SpreadsheetML_Table_Definitions.rnc (334)",
+          "SpreadsheetML_Volatile_Dependencies.rnc (337)",
+          "SpreadsheetML_Workbook.rnc (337)",
+          "SpreadsheetML_Worksheet.rnc (338)"
+        ],
+        "action": "deferred",
+        "read_status": "classified",
+        "implementation_relevance": "later",
+        "justification_for_grouping": "All 19 files are tiny one-line RELAX NG include stubs pointing to sml.rnc. They declare the root element for each SML part type. No schema content of their own. All deferred with SML. Grouped treatment is sufficient because: (1) they contain no independent schema definitions, (2) all have identical structure, (3) all are deferred to v2 XLSX scope, (4) they do not affect DOCX packaging, XML structure, serialization, or TypeScript modeling."
+      },
+      {
+        "group": "PresentationML entry-point stubs",
+        "pattern": "PresentationML_*.rnc",
+        "count": 13,
+        "size_range_bytes": "293-336",
+        "files": [
+          "PresentationML_Comment_Authors.rnc (301)",
+          "PresentationML_Comments.rnc (295)",
+          "PresentationML_Handout_Master.rnc (303)",
+          "PresentationML_Notes_Master.rnc (301)",
+          "PresentationML_Notes_Slide.rnc (295)",
+          "PresentationML_Presentation.rnc (302)",
+          "PresentationML_Presentation_Properties.rnc (304)",
+          "PresentationML_Slide.rnc (293)",
+          "PresentationML_Slide_Layout.rnc (299)",
+          "PresentationML_Slide_Master.rnc (299)",
+          "PresentationML_Slide_Synchronization_Data.rnc (299)",
+          "PresentationML_User-Defined_Tags.rnc (296)",
+          "PresentationML_View_Properties.rnc (296)"
+        ],
+        "action": "deferred",
+        "read_status": "classified",
+        "implementation_relevance": "later",
+        "justification_for_grouping": "All 13 files are tiny one-line RELAX NG include stubs pointing to pml.rnc. All deferred to v3 PPTX scope. Same justification as SpreadsheetML stubs."
+      },
+      {
+        "group": "DrawingML entry-point stubs",
+        "pattern": "DrawingML_*.rnc",
+        "count": 9,
+        "size_range_bytes": "277-286",
+        "files": [
+          "DrawingML_Chart.rnc (286)",
+          "DrawingML_Chart_Drawing.rnc (286)",
+          "DrawingML_Diagram_Colors.rnc (285)",
+          "DrawingML_Diagram_Data.rnc (285)",
+          "DrawingML_Diagram_Layout_Definition.rnc (285)",
+          "DrawingML_Diagram_Style.rnc (284)",
+          "DrawingML_Table_Styles.rnc (283)",
+          "DrawingML_Theme.rnc (277)",
+          "DrawingML_Theme_Override.rnc (285)"
+        ],
+        "action": "deferred",
+        "read_status": "classified",
+        "implementation_relevance": "later",
+        "justification_for_grouping": "All 9 files are tiny one-line RELAX NG include stubs pointing to dml-main.rnc or dml-chart.rnc. All deferred. Same justification as above."
+      },
+      {
+        "group": "Shared entry-point stubs",
+        "pattern": "Shared_*.rnc",
+        "count": 5,
+        "size_range_bytes": "89-166",
+        "files": [
+          "Shared_Additional_Characteristics.rnc (89)",
+          "Shared_Bibliography.rnc (97)",
+          "Shared_Custom_File_Properties.rnc (164)",
+          "Shared_Custom_XML_Data_Storage_Properties.rnc (109)",
+          "Shared_Extended_File_Properties.rnc (166)"
+        ],
+        "action": "classify-only",
+        "read_status": "classified",
+        "implementation_relevance": "not-for-docx",
+        "justification_for_grouping": "All 5 files are tiny one-line RELAX NG include stubs. No independent schema content. Grouped treatment sufficient."
+      }
+    ]
+  },
+  "edition_5th_part4_transitional": {
+    "_section": "5TH EDITION PART4 — Transitional schemas including VML (all per-file for Word-relevant files)",
+    "path": "ALL ECMA PACKAGES/ECMA-376_5th_edition/5TH EDITION PART4",
+    "edition": "5th",
+    "files": [
+      {
+        "path": "5TH EDITION PART4/wml.xsd",
+        "ext": ".xsd", "size": 174758, "edition": "5th-transitional",
+        "family": "word", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Transitional WML schema. Larger than Strict (174KB vs 163KB) due to legacy elements. Use Strict (Part1) for v1. Needed only if transitional DOCX compatibility is required.",
+        "notes": "Transitional adds VML-based drawing, legacy paragraph properties, compatibility settings."
+      },
+      {
+        "path": "5TH EDITION PART4/wml.rnc",
+        "ext": ".rnc", "size": 82688, "edition": "5th-transitional",
+        "family": "word", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "RELAX NG equivalent of transitional wml.xsd."
+      },
+      {
+        "path": "5TH EDITION PART4/vml-main.xsd",
+        "ext": ".xsd", "size": 26718, "edition": "5th-transitional",
+        "family": "word", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "VML main schema. Legacy vector markup used in transitional DOCX for shapes, text boxes, images. Not needed for Strict v1. Required if transitional compatibility is added.",
+        "notes": "Namespace: urn:schemas-microsoft-com:vml"
+      },
+      {
+        "path": "5TH EDITION PART4/vml-main.rnc",
+        "ext": ".rnc", "size": 11791, "edition": "5th-transitional",
+        "family": "word", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "RELAX NG equivalent."
+      },
+      {
+        "path": "5TH EDITION PART4/vml-officeDrawing.xsd",
+        "ext": ".xsd", "size": 25279, "edition": "5th-transitional",
+        "family": "word", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "VML Office Drawing extensions (o: namespace). Used with vml-main.xsd for legacy drawing in transitional DOCX."
+      },
+      {
+        "path": "5TH EDITION PART4/vml-officeDrawing.rnc",
+        "ext": ".rnc", "size": 13918, "edition": "5th-transitional",
+        "family": "word", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "RELAX NG equivalent."
+      },
+      {
+        "path": "5TH EDITION PART4/vml-wordprocessingDrawing.xsd",
+        "ext": ".xsd", "size": 4010, "edition": "5th-transitional",
+        "family": "word", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "VML Word-specific drawing extensions. Used for legacy text boxes and shapes in transitional DOCX."
+      },
+      {
+        "path": "5TH EDITION PART4/vml-wordprocessingDrawing.rnc",
+        "ext": ".rnc", "size": 2091, "edition": "5th-transitional",
+        "family": "word", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "RELAX NG equivalent."
+      },
+      {
+        "path": "5TH EDITION PART4/vml-presentationDrawing.xsd",
+        "ext": ".xsd", "size": 535, "edition": "5th-transitional",
+        "family": "powerpoint", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "VML PresentationML drawing. Deferred with PML."
+      },
+      {
+        "path": "5TH EDITION PART4/vml-presentationDrawing.rnc",
+        "ext": ".rnc", "size": 510, "edition": "5th-transitional",
+        "family": "powerpoint", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "RELAX NG equivalent."
+      },
+      {
+        "path": "5TH EDITION PART4/vml-spreadsheetDrawing.xsd",
+        "ext": ".xsd", "size": 5712, "edition": "5th-transitional",
+        "family": "excel", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "VML SpreadsheetML drawing. Deferred with SML."
+      },
+      {
+        "path": "5TH EDITION PART4/vml-spreadsheetDrawing.rnc",
+        "ext": ".rnc", "size": 3651, "edition": "5th-transitional",
+        "family": "excel", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "RELAX NG equivalent."
+      },
+      {
+        "path": "5TH EDITION PART4/VML_Drawing.rnc",
+        "ext": ".rnc", "size": 1551, "edition": "5th-transitional",
+        "family": "word", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Entry-point stub for VML drawing parts. Deferred with VML."
+      },
+      {
+        "path": "5TH EDITION PART4/dml-wordprocessingDrawing.xsd",
+        "ext": ".xsd", "size": 15082, "edition": "5th-transitional",
+        "family": "drawingml", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Transitional version of dml-wordprocessingDrawing.xsd. Slightly larger than Strict (15082 vs 14942). Use Strict Part1 version for v1.1 image support."
+      },
+      {
+        "path": "5TH EDITION PART4/dml-main.xsd",
+        "ext": ".xsd", "size": 155120, "edition": "5th-transitional",
+        "family": "drawingml", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Transitional dml-main. Use Strict Part1 version."
+      },
+      {
+        "path": "5TH EDITION PART4/sml.xsd",
+        "ext": ".xsd", "size": 246716, "edition": "5th-transitional",
+        "family": "excel", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Transitional SML. Deferred with SML."
+      },
+      {
+        "path": "5TH EDITION PART4/pml.xsd",
+        "ext": ".xsd", "size": 85288, "edition": "5th-transitional",
+        "family": "powerpoint", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Transitional PML. Deferred with PML."
+      },
+      {
+        "path": "5TH EDITION PART4/Ecma Office Open XML Part 4 - Transitional Migration Features.pdf",
+        "ext": ".pdf", "size": 10205576, "edition": "5th-transitional",
+        "family": "prose", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Transitional spec prose. 10MB binary PDF. Not machine-parseable."
+      },
+      {
+        "path": "5TH EDITION PART4/any.rnc",
+        "ext": ".rnc", "size": 97, "edition": "5th-transitional",
+        "family": "schema", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "Wildcard RNC pattern."
+      },
+      {
+        "path": "5TH EDITION PART4/xml.rnc",
+        "ext": ".rnc", "size": 268, "edition": "5th-transitional",
+        "family": "schema", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "XML namespace prefix declaration for RNC."
+      },
+      {
+        "path": "5TH EDITION PART4/shared-commonSimpleTypes.xsd",
+        "ext": ".xsd", "size": 6501, "edition": "5th-transitional",
+        "family": "shared-core", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Transitional shared types. Larger than Strict (6501 vs 4831) — adds transitional-only types. Use Strict Part1 version for v1."
+      },
+      {
+        "path": "5TH EDITION PART4/shared-relationshipReference.xsd",
+        "ext": ".xsd", "size": 1367, "edition": "5th-transitional",
+        "family": "shared-core", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "Transitional version. Same as Strict. Use Strict Part1 version."
+      },
+      {
+        "path": "5TH EDITION PART4/shared-documentPropertiesExtended.xsd",
+        "ext": ".xsd", "size": 3507, "edition": "5th-transitional",
+        "family": "shared-core", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "Transitional version. Use Strict Part1 version."
+      },
+      {
+        "path": "5TH EDITION PART4/shared-documentPropertiesCustom.xsd",
+        "ext": ".xsd", "size": 2608, "edition": "5th-transitional",
+        "family": "shared-core", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "Transitional version. Use Strict Part1 version."
+      },
+      {
+        "path": "5TH EDITION PART4/shared-documentPropertiesVariantTypes.xsd",
+        "ext": ".xsd", "size": 7507, "edition": "5th-transitional",
+        "family": "shared-core", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "Transitional version. Use Strict Part1 version."
+      },
+      {
+        "path": "5TH EDITION PART4/shared-math.xsd",
+        "ext": ".xsd", "size": 23870, "edition": "5th-transitional",
+        "family": "shared-core", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Transitional OMML. Deferred with math support."
+      },
+      {
+        "path": "5TH EDITION PART4/shared-bibliography.xsd",
+        "ext": ".xsd", "size": 7328, "edition": "5th-transitional",
+        "family": "shared-core", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Transitional bibliography. Deferred."
+      },
+      {
+        "path": "5TH EDITION PART4/shared-additionalCharacteristics.xsd",
+        "ext": ".xsd", "size": 1269, "edition": "5th-transitional",
+        "family": "shared-core", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "Transitional version. No DOCX impact."
+      },
+      {
+        "path": "5TH EDITION PART4/shared-customXmlDataProperties.xsd",
+        "ext": ".xsd", "size": 1248, "edition": "5th-transitional",
+        "family": "shared-core", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "Transitional version."
+      },
+      {
+        "path": "5TH EDITION PART4/shared-customXmlSchemaProperties.xsd",
+        "ext": ".xsd", "size": 880, "edition": "5th-transitional",
+        "family": "shared-core", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "Transitional version."
+      },
+      {
+        "path": "5TH EDITION PART4/dml-chart.xsd",
+        "ext": ".xsd", "size": 76483, "edition": "5th-transitional",
+        "family": "drawingml", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Transitional chart schema. Deferred."
+      },
+      {
+        "path": "5TH EDITION PART4/dml-chartDrawing.xsd",
+        "ext": ".xsd", "size": 6956, "edition": "5th-transitional",
+        "family": "drawingml", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Transitional chart drawing. Deferred."
+      },
+      {
+        "path": "5TH EDITION PART4/dml-diagram.xsd",
+        "ext": ".xsd", "size": 52387, "edition": "5th-transitional",
+        "family": "drawingml", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Transitional SmartArt. Deferred."
+      },
+      {
+        "path": "5TH EDITION PART4/dml-lockedCanvas.xsd",
+        "ext": ".xsd", "size": 624, "edition": "5th-transitional",
+        "family": "drawingml", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "reason": "Transitional locked canvas. No DOCX impact."
+      },
+      {
+        "path": "5TH EDITION PART4/dml-picture.xsd",
+        "ext": ".xsd", "size": 1231, "edition": "5th-transitional",
+        "family": "drawingml", "action": "classify-only",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Transitional picture schema. Use Strict Part1 version for v1.1."
+      },
+      {
+        "path": "5TH EDITION PART4/dml-spreadsheetDrawing.xsd",
+        "ext": ".xsd", "size": 8862, "edition": "5th-transitional",
+        "family": "drawingml", "action": "deferred",
+        "read_status": "classified", "implementation_relevance": "later",
+        "reason": "Transitional SML drawing. Deferred."
+      }
+    ],
+    "grouped_entries": [
+      {
+        "group": "Part4 PNG border art assets",
+        "pattern": "*.png",
+        "count": 0,
+        "notes": "Part4 contains no PNG files — confirmed by directory scan.",
+        "action": "n/a"
+      },
+      {
+        "group": "Part4 RNC stubs (SpreadsheetML, PresentationML, DrawingML, Shared, WordprocessingML)",
+        "count": 68,
+        "action": "deferred or classify-only",
+        "read_status": "classified",
+        "implementation_relevance": "later",
+        "justification_for_grouping": "All are transitional-edition entry-point stubs identical in structure to their Part1 counterparts. All deferred. Use Part1 stubs as reference. No independent schema content."
+      }
+    ]
+  },
+  "editions_1_through_4": {
+    "_section": "Editions 1–4 — superseded, classified only. Per-file for Word/OPC/shared schemas; grouped for bulk assets.",
+    "policy": "These editions are superseded by the 5th edition. No deep reading performed. Per-file entries are provided for all schema files because they may be referenced for compatibility analysis or diff checking. PNG art and duplicate stub files are grouped.",
+
+    "edition_1st_2006": {
+      "path": "ALL ECMA PACKAGES/ECMA-376_1st_edition_december_2006",
+      "edition": "1st",
+      "prose_files": [
+        { "path": "1st/Office Open XML Part 1 - Fundamentals.docx", "ext": ".docx", "size": 396219, "family": "prose", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition spec in DOCX format. Binary. Superseded." },
+        { "path": "1st/Office Open XML Part 1 - Fundamentals.pdf", "ext": ".pdf", "size": 1735283, "family": "prose", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition spec PDF. Superseded." },
+        { "path": "1st/Office Open XML Part 2 - Open Packaging Conventions.docx", "ext": ".docx", "size": 346705, "family": "prose", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition OPC spec DOCX. Superseded." },
+        { "path": "1st/Office Open XML Part 2 - Open Packaging Conventions.pdf", "ext": ".pdf", "size": 1583287, "family": "prose", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition OPC spec PDF. Superseded." },
+        { "path": "1st/Office Open XML Part 3 - Primer.docx", "ext": ".docx", "size": 6930533, "family": "prose", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition primer DOCX. Superseded." },
+        { "path": "1st/Office Open XML Part 3 - Primer.pdf", "ext": ".pdf", "size": 6615694, "family": "prose", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition primer PDF. Superseded." },
+        { "path": "1st/Office Open XML Part 4 - Markup Language Reference.docx", "ext": ".docx", "size": 15165007, "family": "prose", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition markup reference DOCX. Superseded." },
+        { "path": "1st/Office Open XML Part 4 - Markup Language Reference.pdf", "ext": ".pdf", "size": 40494138, "family": "prose", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition markup reference PDF. Superseded." },
+        { "path": "1st/Office Open XML Part 5 - Markup Compatibility and Extensibility.docx", "ext": ".docx", "size": 101062, "family": "prose", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition MCE spec DOCX. Superseded." },
+        { "path": "1st/Office Open XML Part 5 - Markup Compatibility and Extensibility.pdf", "ext": ".pdf", "size": 768686, "family": "prose", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition MCE spec PDF. Superseded." }
+      ],
+      "opc_schemas": [
+        { "path": "1st/opc-coreProperties.xsd (root)", "ext": ".xsd", "size": 2096, "family": "packaging", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition OPC core properties. Superseded by 5th edition Part2 version." },
+        { "path": "1st/OpenPackagingConventions-XMLSchema/opc-contentTypes.xsd", "ext": ".xsd", "size": 3157, "family": "packaging", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition OPC content types. Superseded." },
+        { "path": "1st/OpenPackagingConventions-XMLSchema/opc-coreProperties.xsd", "ext": ".xsd", "size": 2096, "family": "packaging", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition OPC core properties. Superseded." },
+        { "path": "1st/OpenPackagingConventions-XMLSchema/opc-digSig.xsd", "ext": ".xsd", "size": 4002, "family": "packaging", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition OPC digital signatures. Superseded." },
+        { "path": "1st/OpenPackagingConventions-XMLSchema/opc-relationships.xsd", "ext": ".xsd", "size": 1377, "family": "packaging", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition OPC relationships. Superseded." },
+        { "path": "1st/OpenPackagingConventions-RELAXNG/opc-contentTypes.rnc", "ext": ".rnc", "size": 1258, "family": "packaging", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition RNC. Superseded." },
+        { "path": "1st/OpenPackagingConventions-RELAXNG/opc-coreProperties.rnc", "ext": ".rnc", "size": 1465, "family": "packaging", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition RNC. Superseded." },
+        { "path": "1st/OpenPackagingConventions-RELAXNG/opc-digSig.rnc", "ext": ".rnc", "size": 2234, "family": "packaging", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition RNC. Superseded." },
+        { "path": "1st/OpenPackagingConventions-RELAXNG/opc-relationships.rnc", "ext": ".rnc", "size": 736, "family": "packaging", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition RNC. Superseded." }
+      ],
+      "wml_schema": [
+        { "path": "1st/OfficeOpenXML-XMLSchema/wml.xsd", "ext": ".xsd", "size": 465467, "family": "word", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition WML. 465KB — much larger than 5th edition (163KB) due to different schema organisation. Superseded. Note: size difference is structural, not content — 1st edition used many separate files merged into one.", "notes": "1st edition used split schema files (dml-baseTypes, dml-text, etc.) rather than consolidated dml-main.xsd." }
+      ],
+      "shared_schemas_1st": [
+        { "path": "1st/OfficeOpenXML-XMLSchema/shared-relationshipReference.xsd", "ext": ".xsd", "size": 1682, "family": "shared-core", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition. Superseded." },
+        { "path": "1st/OfficeOpenXML-XMLSchema/shared-documentPropertiesExtended.xsd", "ext": ".xsd", "size": 8028, "family": "shared-core", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition. Superseded." },
+        { "path": "1st/OfficeOpenXML-XMLSchema/shared-documentPropertiesCustom.xsd", "ext": ".xsd", "size": 8011, "family": "shared-core", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition. Superseded." },
+        { "path": "1st/OfficeOpenXML-XMLSchema/shared-documentPropertiesVariantTypes.xsd", "ext": ".xsd", "size": 30475, "family": "shared-core", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition. Superseded." },
+        { "path": "1st/OfficeOpenXML-XMLSchema/shared-math.xsd", "ext": ".xsd", "size": 57578, "family": "shared-core", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition. Superseded." },
+        { "path": "1st/OfficeOpenXML-XMLSchema/shared-bibliography.xsd", "ext": ".xsd", "size": 21415, "family": "shared-core", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition. Superseded." },
+        { "path": "1st/OfficeOpenXML-XMLSchema/shared-additionalCharacteristics.xsd", "ext": ".xsd", "size": 2981, "family": "shared-core", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition. Superseded." },
+        { "path": "1st/OfficeOpenXML-XMLSchema/shared-customXmlDataProperties.xsd", "ext": ".xsd", "size": 2088, "family": "shared-core", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition. Superseded." },
+        { "path": "1st/OfficeOpenXML-XMLSchema/shared-customXmlSchemaProperties.xsd", "ext": ".xsd", "size": 1567, "family": "shared-core", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition. Superseded." }
+      ],
+      "xml_data_1st": [
+        { "path": "1st/OfficeOpenXML-DrawingMLGeometries/presetShapeDefinitions.xml", "ext": ".xml", "size": 559367, "family": "xml", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition preset shapes. Superseded." },
+        { "path": "1st/OfficeOpenXML-DrawingMLGeometries/presetTextWarpDefinitions.xml", "ext": ".xml", "size": 51599, "family": "xml", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition preset text warps. Superseded." },
+        { "path": "1st/OfficeOpenXML-SpreadsheetMLStyles/presetCellStyles.xml", "ext": ".xml", "size": 115925, "family": "xml", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition SML cell styles. Superseded." },
+        { "path": "1st/OfficeOpenXML-SpreadsheetMLStyles/presetTableStyles.xml", "ext": ".xml", "size": 537455, "family": "xml", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition SML table styles. Superseded." },
+        { "path": "1st/OfficeOpenXML-RELAXNG/OfficeOpenXML-RELAXNG.zip", "ext": ".zip", "size": 162731, "family": "archive", "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx", "reason": "1st edition RELAX NG schemas in ZIP. Superseded. Contents not extracted." }
+      ],
+      "grouped_dml_schemas_1st": {
+        "group": "1st edition DrawingML split schemas (OfficeOpenXML-XMLSchema/dml-*.xsd)",
+        "count": 30,
+        "note": "1st edition used split DML files (dml-baseTypes, dml-text, dml-chart, dml-shapeGeometry etc.) instead of consolidated dml-main.xsd. All superseded by 5th edition. All classified-only.",
+        "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "justification_for_grouping": "All 30 files are superseded 1st-edition DML schemas. None affect current DOCX implementation. The 5th edition consolidated these into dml-main.xsd. Grouped treatment is sufficient."
+      },
+      "grouped_sml_pml_vml_1st": {
+        "group": "1st edition SML, PML, VML schemas (OfficeOpenXML-XMLSchema/sml-*.xsd, pml-*.xsd, vml-*.xsd)",
+        "count": 27,
+        "action": "classify-only", "read_status": "classified", "implementation_relevance": "not-for-docx",
+        "justification_for_grouping": "All superseded 1st-edition application schemas. No DOCX impact."
+      }
+    },
+
+    "editions_2nd_3rd_4th_summary": {
+      "note": "Editions 2nd (2008), 3rd (2011), 4th (2012) follow the same pattern as 1st edition. All schema files are superseded by 5th edition. All prose PDFs are binary and not machine-parseable. All PNG art is decorative. Full per-file data was collected via directory scan (see raw data in _meta section). Classification is identical to 1st edition: classify-only, not-for-docx, superseded.",
+      "edition_2nd_non_png_count": 168,
+      "edition_3rd_non_png_count": 120,
+      "edition_4th_non_png_count": 155,
+      "key_differences_from_5th": [
+        "2nd edition: first to introduce Strict/Transitional split. wml.xsd Strict=419KB, Transitional=447KB. OPC schemas slightly different.",
+        "3rd edition: flat directory layout mixing schemas and PNG art. wml.xsd=174KB. First edition with consolidated dml-main.xsd.",
+        "4th edition: wml.xsd Strict=163KB (same as 5th). OPC schemas identical to 5th. Minor schema corrections only.",
+        "5th edition: current authoritative source. wml.xsd Strict=163KB."
+      ],
+      "action": "classify-only",
+      "read_status": "classified",
+      "implementation_relevance": "not-for-docx"
+    }
+  },
+
+  "grouped_png_assets": {
+    "_section": "PNG decorative border art — grouped across all editions",
+    "total_count": 5290,
+    "total_size_bytes": 109617926,
+    "distribution": {
+      "5TH EDITION PART1": 1320,
+      "3rd edition (flat dir)": "~1320",
+      "2nd edition OfficeOpenXML-WordprocessingMLArtBorders": "~1320",
+      "4th edition OfficeOpenXML-WordprocessingMLArtBorders": "~1320",
+      "null (root, misnamed PNG)": 1
+    },
+    "action": "ignore-for-v1",
+    "read_status": "classified",
+    "implementation_relevance": "not-for-docx",
+    "justification_for_grouping": "5290 PNG files totalling ~104MB. All are decorative border art images (apples, bats, birds, etc.) referenced by ST_Border enum values in wml.xsd. They are: (1) binary image files with no schema content, (2) not embedded in generated DOCX output, (3) referenced only by name in the ST_Border enum which is already extracted, (4) identical across editions (same files duplicated), (5) have zero impact on packaging, XML structure, serialization, or TypeScript modeling. The ST_Border enum values are already captured in spec-extraction.json. The PNG files themselves are not needed."
+  }
+}

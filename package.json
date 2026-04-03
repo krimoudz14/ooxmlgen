@@ -1,0 +1,61 @@
+{
+  "name": "ooxmlgen",
+  "version": "1.0.0",
+  "description": "OOXML generation library — Professional DOCX documents with advanced Word features",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "CAPABILITY_MATRIX.md",
+    "API_CLASSIFICATION.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "keywords": [
+    "docx",
+    "ooxml",
+    "word",
+    "document",
+    "wordprocessingml",
+    "ecma-376",
+    "typescript",
+    "pdf",
+    "office",
+    "microsoft-office",
+    "word-document",
+    "arabic",
+    "rtl",
+    "right-to-left",
+    "internationalization"
+  ],
+  "author": "ooxmlgen contributors",
+  "license": "ISC",
+  "type": "commonjs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/ooxmlgen.git"
+  },
+  "homepage": "https://github.com/your-org/ooxmlgen#readme",
+  "bugs": {
+    "url": "https://github.com/your-org/ooxmlgen/issues"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.2"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1"
+  }
+}
